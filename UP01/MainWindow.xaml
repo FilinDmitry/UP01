@@ -33,19 +33,19 @@
         </Style>
         <Style TargetType="ToolTip" x:Key="tt_Style">
             <Setter Property="Placement" Value="Right"></Setter>
-            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="Height" Value="55"></Setter>
             <Setter Property="Margin" Value="20, 0,0, 0"></Setter>
             <Setter Property="Background" Value="Gray"></Setter>
-            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <Grid Background="Black">
+        <Grid Background="#252525">
             <Grid x:Name="NavPanel" HorizontalAlignment="Left" Width="65" Background="Gray">
                 <StackPanel x:Name="st_panel">
-                    <Grid Height="90">
+                    <!--<Grid Height="90">
                         <TextBlock Grid.Row="1" Margin="73, -20, 0, 0" Text="Меню" Foreground="White" Background="Transparent" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center">
                             
                         </TextBlock>
@@ -87,7 +87,7 @@
                             </ToggleButton.Triggers>
                         </ToggleButton>
                         
-                    </Grid>
+                    </Grid>-->
                     <ListView SelectionChanged="ListV_SelectionChanged" MouseEnter="ListV_MouseEnter" x:Name="ListV" BorderBrush="Transparent" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListViewItem x:Name="El1" HorizontalAlignment="Left" Margin="0,0,0,15">
                             <StackPanel Orientation="Horizontal" Width="230">
@@ -141,7 +141,7 @@
                 </StackPanel>
             </Grid>
             <Grid Width="740" HorizontalAlignment="Right">
-                <Frame x:Name="MainFrame" Source="\Pages\AuthorizationPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+                <Frame x:Name="MainFrame" Source="\Pages\BookCatalog.xaml" NavigationUIVisibility="Hidden"></Frame>
             </Grid>
         </Grid>
     </Grid>

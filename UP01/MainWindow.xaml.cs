@@ -28,7 +28,7 @@ namespace UP01
 
         private void ListV_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (TgBtn.IsChecked == true)
+            /*if (TgBtn.IsChecked == true)
             {
                 tt1.Visibility = Visibility.Collapsed;
                 tt2.Visibility = Visibility.Collapsed;
@@ -39,7 +39,7 @@ namespace UP01
                 tt1.Visibility = Visibility.Visible;
                 tt2.Visibility = Visibility.Visible;
                 tt3.Visibility = Visibility.Visible;
-            }
+            }*/
         }
 
         private void ListV_SelectionChanged(object sender, SelectionChangedEventArgs e)
