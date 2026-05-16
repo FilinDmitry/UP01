@@ -140,8 +140,8 @@
                     </ListView>
                 </StackPanel>
             </Grid>
-            <Grid Width="740" HorizontalAlignment="Right">
-                <Frame x:Name="MainFrame" Source="\Pages\BookCatalog.xaml" NavigationUIVisibility="Hidden"></Frame>
+            <Grid Width="730" HorizontalAlignment="Right">
+                <Frame x:Name="MainFrame" Source="\Pages\BookListPage.xaml" NavigationUIVisibility="Hidden"></Frame>
             </Grid>
         </Grid>
     </Grid>

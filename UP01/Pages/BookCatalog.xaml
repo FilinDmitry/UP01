@@ -37,9 +37,16 @@
             </Grid>
             
         </Border>
-            <ComboBox ></ComboBox>
-            <ComboBox></ComboBox>
+            <ComboBox Style="{StaticResource Combo}">
+                
+            </ComboBox>
+            <ComboBox Style="{StaticResource Combo}">
+                
+            </ComboBox>
         </StackPanel>
+        <ListBox Grid.Row="1">
+            
+        </ListBox>
     </Grid>
         
 </Page>

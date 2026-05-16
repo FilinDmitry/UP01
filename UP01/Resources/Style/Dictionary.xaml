@@ -9,12 +9,14 @@
     <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
     <Color x:Key="MouseOnColor">#252525</Color>
     <SolidColorBrush x:Key="MouseOnColorBrush" Color="{StaticResource MouseOnColor}"/>
+    <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource TextColor}"/>
     
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"></Setter>
         <Setter Property="Margin" Value="10"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        
     </Style>
 
     <Style TargetType="Button">
@@ -22,6 +24,7 @@
         <Setter Property="Margin" Value="20"></Setter>
         <Setter Property="FontSize" Value="20"></Setter>
         <Setter Property="Background" Value="{StaticResource SecondColorBrush}"></Setter>
+        
     </Style>
     <Style TargetType="TextBox">
         <Setter Property="Height" Value="50"></Setter>
@@ -35,13 +38,30 @@
         <Setter Property="TextAlignment" Value="Left"></Setter>
         
     </Style>
-    <Style TargetType="ComboBox">
-        <Setter Property="Height" Value="50"></Setter>
-        <Setter Property="Width" Value="120"></Setter>
-        <Setter Property="FontSize" Value="60"></Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"></Setter>
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="{StaticResource MainColorBrush}"></Setter>
+    </Style>
+    <Style TargetType="TabItem">
+        <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="Background" Value="{StaticResource SecondColorBrush}"></Setter>
-        <Setter Property="Margin" Value="10"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"></Setter>
+        <Setter Property="MinWidth" Value="90"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid Name="tabGrid">
+                        <Border Name="border" Background="{StaticResource MainColorBrush}" BorderThickness="1,1,1,0" Margin="0,-1,0,0" Padding="6,0,6,0" BorderBrush="DarkGray">
+                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" RecognizesAccessKey="True"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource SecondColorBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
 </ResourceDictionary>

@@ -9,6 +9,59 @@
       Title="BookListPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox MinWidth="400" x:Name="Search" Grid.Column="1"></TextBox>
+                    <TextBlock Margin="25, 0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="20" Foreground="{StaticResource TextColorBrush}" Text="Введите поисковый запрос" Grid.Column="1">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=Search}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </Grid>
+
+            </Border>
+            <ComboBox Style="{StaticResource Combo}">
+
+            </ComboBox>
+            <ComboBox Style="{StaticResource Combo}">
+
+            </ComboBox>
+        </StackPanel>
+        <TabControl Background="{StaticResource MainColorBrush}" Margin="8, 0,0,0" Grid.Row="1">
+            
+            <TabItem Header="1" Tag="Все">
+                
+            </TabItem>
+            <TabItem Tag="Прочитано">
+
+            </TabItem>
+            <TabItem Tag="Читаю">
+
+            </TabItem>
+            <TabItem Tag="В планах">
+
+            </TabItem>
+            <TabItem Tag="Заброшено">
+
+            </TabItem>
+        </TabControl>
         
     </Grid>
 </Page>
