@@ -9,6 +9,71 @@
       Title="BookPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Название книги" FontSize="24"></TextBlock>
+        <Button Grid.Row="0" HorizontalAlignment="Right" Width="50" Height="50">
+            <Image Width="50" Height="50" Source="/Resources/Icons/menu.jpg"></Image>
+            
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Style.Triggers>
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                
+                                    <MenuItem Header="Жалоба на книгу">
+                                    
+                                    </MenuItem>
+                                <MenuItem Header="Жалоба на автора" />
+                                <MenuItem Visibility="Collapsed" Header="Заморозить"></MenuItem>
+                                <MenuItem Visibility="Collapsed" Header="Разморозить"></MenuItem>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image VerticalAlignment="Top" Source="/Resources/Icons/profile.png" Grid.Row="0" Grid.RowSpan="2" Stretch="Uniform"></Image>
+            <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top">
+                <TextBlock TextWrapping="Wrap" Text="Автор: Домитеев Михаил"></TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="Жанры: Боевик, Комикс"></TextBlock>
+                <TextBlock TextWrapping="Wrap" FontSize="16" Text="Длиииииииииииииииииииииииииииное описание" ></TextBlock>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="0" Grid.Column="2">
+                <TextBlock Text="Оценка: 10/10" HorizontalAlignment="Right"></TextBlock>
+                <Button Content="Читать"></Button>
+                <Button Content="Создать отзыв" ></Button>
+            </StackPanel>
+        </Grid>
+        <ListBox Grid.Row="2">
+            
+        </ListBox>
     </Grid>
 </Page>

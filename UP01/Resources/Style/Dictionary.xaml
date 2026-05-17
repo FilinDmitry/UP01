@@ -63,5 +63,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+    <Style TargetType="MenuItem">
+        <Setter Property="Background" Value="{StaticResource SecondColorBrush}"></Setter>
+    </Style>
 </ResourceDictionary>

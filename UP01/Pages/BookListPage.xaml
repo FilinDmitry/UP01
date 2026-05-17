@@ -44,7 +44,7 @@
 
             </ComboBox>
         </StackPanel>
-        <TabControl Background="{StaticResource MainColorBrush}" Margin="8, 0,0,0" Grid.Row="1">
+        <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
             
             <TabItem Header="1" Tag="Все">
                 

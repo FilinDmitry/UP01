@@ -49,7 +49,22 @@ namespace UP01
             switch (lvi.Name)
             {
                 case ("El1"):
-                    MainFrame.NavigationService.Navigate(new AuthorizationPage());
+                    MainFrame.NavigationService.Navigate(new ProfilePage());
+                    break;
+                case ("El2"):
+                    MainFrame.NavigationService.Navigate(new BookCatalog());
+                    break;
+                case ("El3"):
+                    MainFrame.NavigationService.Navigate(new BookListPage());
+                    break;
+                case ("El4"):
+                    MainFrame.NavigationService.Navigate(new AuthorPage());
+                    break;
+                case ("El5"):
+                    MainFrame.NavigationService.Navigate(new AdminPage());
+                    break;
+                case ("El6"):
+                    MainFrame.NavigationService.Navigate(new FreezePage());
                     break;
             }
         }
