@@ -45,20 +45,30 @@
             </ComboBox>
         </StackPanel>
         <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
-            
-            <TabItem Header="1" Tag="Все">
-                
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ListBox BorderThickness="0">
+                        <ListBoxItem>
+                            <TextBlock Text="fadfad"></TextBlock>
+                        </ListBoxItem>
+                    </ListBox>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+            <TabItem Tag="Все">
+                <TabItem.Header>
+                    <TextBlock Margin="0" Text="Все" HorizontalAlignment="Center"></TextBlock>
+                </TabItem.Header>
             </TabItem>
-            <TabItem Tag="Прочитано">
+            <TabItem Header="Прочитано" Tag="Прочитано">
 
             </TabItem>
-            <TabItem Tag="Читаю">
+            <TabItem Header="Читаю" Tag="Читаю">
 
             </TabItem>
-            <TabItem Tag="В планах">
+            <TabItem Header="В планах" Tag="В планах">
 
             </TabItem>
-            <TabItem Tag="Заброшено">
+            <TabItem Header="Заброшено" Tag="Заброшено">
 
             </TabItem>
         </TabControl>

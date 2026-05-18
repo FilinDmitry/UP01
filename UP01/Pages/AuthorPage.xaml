@@ -5,10 +5,23 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UP01.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="800"
       Title="AuthorPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Content="Добавить книгу" Width="300" HorizontalAlignment="Right"></Button>
+        <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
+
+            <TabItem Header="Мои книги">
+
+            </TabItem>
+            <TabItem Header="Замороженные книги">
+
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
