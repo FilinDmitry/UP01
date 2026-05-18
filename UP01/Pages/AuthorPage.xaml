@@ -13,14 +13,61 @@
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <TextBlock Text="Author" FontSize="30"></TextBlock>
         <Button Content="Добавить книгу" Width="300" HorizontalAlignment="Right"></Button>
         <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
 
             <TabItem Header="Мои книги">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
 
+                                <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
+                                    <StackPanel>
+                                        <Image Source="/Resources/Icons/profile.png" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
+                                        <TextBlock Text="Name" Margin="5"></TextBlock>
+                                        <Button Content="Редактировать" Margin="2"></Button>
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="3" CornerRadius="3" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{StaticResource SecondColorBrush}">
+                                    <TextBlock Margin="3" Text="10/10" FontSize="14"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </TabItem>
             <TabItem Header="Замороженные книги">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
 
+                                <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
+                                    <StackPanel>
+                                        <Image Source="/Resources/Icons/profile.png" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
+                                        <TextBlock Text="Name" Margin="5"></TextBlock>
+                                        <Button Content="Оспорить заморозку" Margin="2"></Button>
+                                    </StackPanel>
+                                </Border>
+                                <Border Margin="3" CornerRadius="3" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{StaticResource SecondColorBrush}">
+                                    <TextBlock Margin="3" Text="10/10" FontSize="14"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </TabItem>
         </TabControl>
     </Grid>

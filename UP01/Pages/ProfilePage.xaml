@@ -31,6 +31,25 @@
                 <Button Content="Оспорить заморозку"></Button>
             </StackPanel>
         </StackPanel>
-        <ListBox Grid.Row="1" Grid.ColumnSpan="2"></ListBox>
+        <ListBox Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid MinHeight="100">
+                        <TextBlock Text="01.01.0001" VerticalAlignment="Bottom" Margin="3" FontSize="12" HorizontalAlignment="Right" Foreground="{StaticResource SecondTextColorBrush}"></TextBlock>
+                        <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
+                            <StackPanel>
+                                <TextBlock Margin="5" Text="user" FontSize="24"></TextBlock>
+                                <TextBlock Margin="5" Text="Message" TextWrapping="Wrap" FontSize="18"></TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Margin="3" Text="Оценка 10/10" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
     </Grid>
 </Page>

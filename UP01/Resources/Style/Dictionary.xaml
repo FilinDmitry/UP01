@@ -10,6 +10,8 @@
     <Color x:Key="MouseOnColor">#252525</Color>
     <SolidColorBrush x:Key="MouseOnColorBrush" Color="{StaticResource MouseOnColor}"/>
     <SolidColorBrush x:Key="BorderColorBrush" Color="{StaticResource TextColor}"/>
+    <Color x:Key="SecondTextColor">#757575</Color>
+    <SolidColorBrush x:Key="SecondTextColorBrush" Color="{StaticResource SecondTextColor}"/>
     
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"></Setter>
