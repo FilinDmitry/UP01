@@ -128,7 +128,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
-            <Frame x:Name="MainFrame" Source="\Pages\BookPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+            <Frame x:Name="MainFrame" Source="\Pages\Authorizationpage.xaml" NavigationUIVisibility="Hidden"></Frame>
         </Grid>
     </Grid>
 </Window>

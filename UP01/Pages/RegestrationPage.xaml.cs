@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.Models;
 
 namespace UP01.Pages
 {
@@ -23,6 +24,16 @@ namespace UP01.Pages
         public RegestrationPage()
         {
             InitializeComponent();
+        }
+
+        private void To_RegPage(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new AuthorizationPage());
+        }
+
+        private void RegButtonClick(object sender, RoutedEventArgs e)
+        {
+            Auth.New_user(TB_Login.Text, TB_Name.Text, TB_Password.Password.ToString(), TB_Email.Text);
         }
     }
 }

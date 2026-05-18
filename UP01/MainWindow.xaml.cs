@@ -44,6 +44,11 @@ namespace UP01
 
         private void ListV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (Auth.cur_user == null)
+            {
+                //MessageBox.Show("Сначала необходимо авторизироваться");
+                //return;
+            }
             ListView lv = sender as ListView;
             ListViewItem lvi =lv.SelectedItem as ListViewItem;
             switch (lvi.Name)

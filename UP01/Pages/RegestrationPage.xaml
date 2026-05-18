@@ -23,13 +23,16 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Логин" Grid.Row="1" HorizontalAlignment="Right" ></TextBlock>
-        <TextBox Width="400" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
+        <TextBox x:Name="TB_Login" Width="400" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
         <TextBlock Text="Пароль" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
-        <PasswordBox Width="400" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"></PasswordBox>
+        <PasswordBox x:Name="TB_Password" Width="400" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"></PasswordBox>
         <TextBlock Text="Почта" Grid.Row="3" HorizontalAlignment="Right" ></TextBlock>
-        <TextBox Width="400" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
+        <TextBox x:Name="TB_Email" Width="400" Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
         <TextBlock Text="Отображаемое имя" Grid.Row="4" HorizontalAlignment="Right" ></TextBlock>
-        <TextBox Width="400" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
-        <Button Width="300" Content="Зарегестрироваться" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="5"></Button>
+        <TextBox x:Name="TB_Name" Width="400" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Left"></TextBox>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="5">
+        <Button Width="300" Content="Зарегестрироваться" VerticalAlignment="Top" Click="RegButtonClick" ></Button>
+        <TextBlock MouseLeftButtonDown="To_RegPage" TextAlignment="Center" Text="Уже есть аккант? Войти " FontStyle="Italic" TextDecorations="Baseline" Margin="0"></TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

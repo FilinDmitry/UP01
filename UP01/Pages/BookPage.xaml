@@ -83,9 +83,42 @@
                                 <TextBlock Margin="5" Text="Message" TextWrapping="Wrap" FontSize="18"></TextBlock>
                             </StackPanel>
                         </Border>
+                        <StackPanel Margin="0, 5, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
+                            <TextBlock  Text="Оценка 10/10"  Margin="0, 0, 10, 0"/>
+                        <Button Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
+                            <Image Width="30" Height="30" Source="/Resources/Icons/menu.jpg"></Image>
+
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="Click">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
+                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                                        </BooleanAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu>
+
+                                                <MenuItem Header="Жалоба на комментарий">
+
+                                                </MenuItem>
+                                                    <MenuItem Header="Жалоба на автора комментария"/>
+                                                </ContextMenu>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                         
-                            <TextBlock Margin="0, 5, 10, 0" Text="Оценка 10/10" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                        
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

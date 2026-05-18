@@ -24,5 +24,10 @@ namespace UP01.Pages
         {
             InitializeComponent();
         }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new RegestrationPage());
+        }
     }
 }

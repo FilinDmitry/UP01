@@ -27,8 +27,8 @@
         <StackPanel Grid.Column="1">
             <Button Content="Стать автором"></Button>
             <StackPanel Visibility="Collapsed">
-                <TextBlock Text="Ваш аккаунт был заморожен по причине: " TextWrapping="Wrap"></TextBlock>
-                <Button Content="Оспорить заморозку"></Button>
+                <TextBlock Text="Ваш аккаунт был заморожен" TextWrapping="Wrap"></TextBlock>
+                <Button Content="Подробнее"></Button>
             </StackPanel>
         </StackPanel>
         <ListBox Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
