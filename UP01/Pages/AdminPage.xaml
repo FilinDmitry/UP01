@@ -5,26 +5,192 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UP01.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="730"
       Title="AdminPage">
 
     <Grid>
         <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
-
+            
+            <!--Нытики-->
             <TabItem Header="Жалобы" Tag="Жалобы">
+                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
+                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                    </Border>
+                                    
 
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
+                                <StackPanel>
+                                    <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
+                                    <StackPanel>
+                                        <TextBlock Text="Жалоба на (Type): с именем" TextWrapping="Wrap"></TextBlock>
+
+                                    </StackPanel>
+                                    <Grid>
+                                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                            <Button Content="Принять" Height="45" Margin="10"></Button>
+                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+
+                                        </StackPanel>
+                                        <Button Content="Подробнее" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
             </TabItem>
+            
+            <!--Клиенты-->
             <TabItem Header="Пользователи" Tag="Пользователи">
+                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid MinHeight="100">
+                                
+                                    
+                                    <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Name" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="26"></TextBlock>
+                                    <TextBlock Text="Пароль" Grid.Row="1" HorizontalAlignment="Right"></TextBlock>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Text="Password"></TextBox>
+                                    <TextBlock Text="Имя" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
+                                    <TextBox Grid.Column="1" Grid.Row="2" Text="Name"></TextBox>
+                                    <TextBlock Text="Роль" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
+                                    <ComboBox Style="{StaticResource Combo}" HorizontalAlignment="Left" Margin="15" Grid.Column="1" Grid.Row="3"></ComboBox>
+                                </Grid>
+                                 
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
 
+                </ListBox>
             </TabItem>
+            
+            <!--Недопонятые гении-->
             <TabItem Header="Заявки на авторство" Tag="Заявки на авторство">
+                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
+                                <StackPanel>
+                                    <TextBlock Text="Name"></TextBlock>
+                                    
+                                        <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
 
+                                    <Grid>
+                                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                            <Button Content="Принять" Height="45" Margin="10"></Button>
+                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
             </TabItem>
+            
+            <!--Не брать трубку-->
             <TabItem Header="Заявки на разморозку" Tag="Заявки на разморозку">
+                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
+                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                    </Border>
 
+
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
+                            <StackPanel>
+                                <TextBlock Text="Name"></TextBlock>
+                                <StackPanel>
+                                    <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
+                                        <TextBlock Text="Reason for freeze" TextWrapping="Wrap"></TextBlock>
+                                    </Border>
+                                    <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
+
+                                </StackPanel>
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                        <Button Content="Принять" Height="45" Margin="10"></Button>
+                                        <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
             </TabItem>
+            
+            <!--Пермаментный бан на сервере-->
             <TabItem Header="Список заморозки" Tag="Список заморозки">
+                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
+                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                    </Border>
 
+
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListBox.GroupStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
+                                <StackPanel>
+
+                                    <TextBlock Text="Заморозка (Type): с именем" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="Причина заморозки" TextWrapping="Wrap"></TextBlock>
+                                    <Grid>
+                                        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                                            <Button Content="Принять" Height="45" Margin="10"></Button>
+                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+
+                                        </StackPanel>
+                                        <Button Content="Подробнее" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
             </TabItem>
             
         </TabControl>

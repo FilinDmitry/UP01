@@ -53,6 +53,7 @@
                                     <StackPanel>
                                         <Image Source="/Resources/Icons/profile.png" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
                                         <TextBlock Text="Name" Margin="5"></TextBlock>
+                                        <TextBlock Margin="5" Text="Reason to Freeze: "></TextBlock>
                                         <Button Content="Оспорить заморозку" Margin="2"></Button>
                                     </StackPanel>
                                 </Border>

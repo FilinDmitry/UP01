@@ -17,10 +17,10 @@
         <Border>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="0"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox MinWidth="400" x:Name="Search" Grid.Column="1"></TextBox>
+                <TextBox MinWidth="350" x:Name="Search" Grid.Column="1"></TextBox>
                 <TextBlock Margin="25, 0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="20" Foreground="{StaticResource TextColorBrush}" Text="Введите поисковый запрос" Grid.Column="1">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -37,12 +37,45 @@
             </Grid>
             
         </Border>
-            <ComboBox Style="{StaticResource Combo}">
-                
+            <Grid>
+            <ComboBox x:Name="Genre" Style="{StaticResource Combo}" FontSize="14">
+
             </ComboBox>
-            <ComboBox Style="{StaticResource Combo}">
-                
-            </ComboBox>
+                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="16" Foreground="{StaticResource TextColorBrush}" Text="Жанр" Grid.Column="1">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedIndex, ElementName=Genre}" Value="-1">
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <Grid>
+                <ComboBox Width="140" x:Name="Sort" Style="{StaticResource Combo}" FontSize="14">
+                    <ComboBoxItem>
+                        <TextBlock Text="По рейтингу"></TextBlock>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <TextBlock Text="По имени"></TextBlock>
+                    </ComboBoxItem>
+                </ComboBox>
+                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="16" Foreground="{StaticResource TextColorBrush}" Text="Сортировка" Grid.Column="1">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedIndex, ElementName=Sort}" Value="-1">
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
         </StackPanel>
         <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>

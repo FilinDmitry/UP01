@@ -47,49 +47,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="NavPanel" HorizontalAlignment="Left" Width="65" Background="Gray">
             <StackPanel x:Name="st_panel">
-                <!--<Grid Height="90">
-                        <TextBlock Grid.Row="1" Margin="73, -20, 0, 0" Text="Меню" Foreground="White" Background="Transparent" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            
-                        </TextBlock>
-                        <ToggleButton  x:Name="TgBtn" VerticalAlignment="Center" Style="{StaticResource TbBtn_Style}" HorizontalAlignment="Left" Margin="5, -20, 0, 0" Height="55" Width="55" BorderThickness="0">
-                            <ToggleButton.Background>
-                                <ImageBrush ImageSource="/Resources/Icons/menu.jpg"></ImageBrush>
-                            </ToggleButton.Background>
-                            <ToggleButton.Triggers>
-                                <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                                    <BeginStoryboard>
-                                        <Storyboard x:Name="HideSidePanel">
-                                            <DoubleAnimation
-                                                Storyboard.TargetName="NavPanel"
-                                                Storyboard.TargetProperty="Width"
-                                                BeginTime="0:0:0"
-                                                From="230" To="65"
-                                                Duration="0:0:0.3"
-                                                >
-                                                 
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                                <EventTrigger RoutedEvent="ToggleButton.Checked">
-                                    <BeginStoryboard>
-                                        <Storyboard x:Name="ShowSidePanel">
-                                            <DoubleAnimation
-                                                Storyboard.TargetName="NavPanel"
-                                                Storyboard.TargetProperty="Width"
-                                                BeginTime="0:0:0"
-                                                From="65" To="230"
-                                                Duration="0:0:0.3"
-                                                >
-
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </ToggleButton.Triggers>
-                        </ToggleButton>
-                        
-                    </Grid>-->
+                
                 <ListView SelectionChanged="ListV_SelectionChanged" MouseEnter="ListV_MouseEnter" x:Name="ListV" BorderBrush="Transparent" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem x:Name="El1" HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">

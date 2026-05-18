@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,31 @@ namespace UP01.Pages
     {
         public AdminPage()
         {
+            /*
+                List<Seans> seans_lst_d = Core.Context.Seans.Where(i => i.Film_ID == movie.ID).ToList();
+
+
+
+            var seans_lst = seans_lst_d.Select(i => new Seans_Info
+            {
+                ID = i.ID,
+                Date = i.StartTime.Date,
+                Time = i.StartTime.TimeOfDay,
+                Kinozal_ID = i.Kinozal_ID,
+                Lenght = i.Lenght
+            }
+            ).ToList();
+
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(seans_lst);
+            PropertyGroupDescription groupDescription
+                    = new PropertyGroupDescription("Date");
+            view.GroupDescriptions.Add(groupDescription);
+            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+
+            DataContext = movie;
+            InitializeComponent();
+            */
             InitializeComponent();
         }
     }

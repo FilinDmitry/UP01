@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:UP01.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="730"
       Title="BookPage">
 
     <Grid>
@@ -68,8 +68,8 @@
             
             <StackPanel Grid.Row="0" Grid.Column="2">
                 <TextBlock Text="Оценка: 10/10" HorizontalAlignment="Right"></TextBlock>
-                <Button Content="Читать"></Button>
-                <Button Content="Создать отзыв" ></Button>
+                <Button Margin="0, 15, 15, 15" Content="Читать"></Button>
+                <Button Margin="0, 15, 15, 15" Content="Создать отзыв" ></Button>
             </StackPanel>
         </Grid>
         <ListBox HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -84,7 +84,7 @@
                             </StackPanel>
                         </Border>
                         
-                            <TextBlock Margin="3" Text="Оценка 10/10" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                            <TextBlock Margin="0, 5, 10, 0" Text="Оценка 10/10" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                         
                     </Grid>
                 </DataTemplate>

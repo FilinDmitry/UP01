@@ -41,9 +41,10 @@
                                             <TextBlock x:Name="SelectedItemText"
                                                    Grid.Column="0"
                                                    Text="{Binding RelativeSource={RelativeSource AncestorType=ComboBox}, Path=Text}"
+                                                   FontSize="16"
                                                    HorizontalAlignment="Left"
                                                    VerticalAlignment="Center"
-                                                   Margin="10,0,0,0"
+                                                   Margin="5,0,0,0"
                                                    Foreground="{StaticResource TextColorBrush}"/>
 
                                             <Path x:Name="Arrow"
