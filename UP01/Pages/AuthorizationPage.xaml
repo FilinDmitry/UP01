@@ -20,11 +20,11 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
             <TextBlock Text="Логин" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 25, 0, 0"></TextBlock>
-            <TextBox Width="400" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
+            <TextBox x:Name="TB_Login" Width="400" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBox>
         <TextBlock Text="Пароль" Grid.Row="1" VerticalAlignment="Bottom" Margin="0, 0, 0, 25" HorizontalAlignment="Right"></TextBlock>
-        <PasswordBox Width="400" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"></PasswordBox>
+        <PasswordBox x:Name="TB_password" Width="400" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"></PasswordBox>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button Content="Войти" Width="200" Margin="10"></Button>
+            <Button Content="Войти" Width="200" Margin="10" Click="Button_Click"></Button>
             <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" TextAlignment="Center" Text="Зарегестрироваться" FontStyle="Italic" TextDecorations="Baseline" Margin="0"></TextBlock>
         </StackPanel>
     </Grid>

@@ -14,9 +14,9 @@
             <RowDefinition Height="300"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="Название книги" FontSize="24"></TextBlock>
+        <TextBlock Text="{Binding Name}" FontSize="24"></TextBlock>
         <Button Grid.Row="0" HorizontalAlignment="Right" Width="50" Height="50">
-            <Image Width="50" Height="50" Source="/Resources/Icons/menu.jpg"></Image>
+            <Image Width="50" Height="50" Source="/Resources/Icons/profile.png" ></Image>
             
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
@@ -59,32 +59,32 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
-            <Image VerticalAlignment="Top" Source="/Resources/Icons/profile.png" Grid.Row="0" Grid.RowSpan="2" Stretch="Uniform"></Image>
+            <Image VerticalAlignment="Top" Source="{Binding ImageSource}" Grid.Row="0" Grid.RowSpan="2" Stretch="Uniform"></Image>
             <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Top">
-                <TextBlock TextWrapping="Wrap" Text="Автор: Домитеев Михаил"></TextBlock>
-                <TextBlock TextWrapping="Wrap" Text="Жанры: Боевик, Комикс"></TextBlock>
-                <TextBlock TextWrapping="Wrap" FontSize="16" Text="Длиииииииииииииииииииииииииииное описание" ></TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Author, StringFormat=Автор: {0}}"></TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Genres, StringFormat=Жанры: {0}}"></TextBlock>
+                <TextBlock TextWrapping="Wrap" FontSize="16" Text="{Binding Description}" ></TextBlock>
             </StackPanel>
             
             <StackPanel Grid.Row="0" Grid.Column="2">
-                <TextBlock Text="Оценка: 10/10" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Text="{Binding Rating}" HorizontalAlignment="Right"></TextBlock>
                 <Button Margin="0, 15, 15, 15" Content="Читать"></Button>
                 <Button Margin="0, 15, 15, 15" Content="Создать отзыв" ></Button>
             </StackPanel>
         </Grid>
-        <ListBox HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="LB_Reviews" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid MinHeight="100">
+                    <Grid>
                         <TextBlock Text="01.01.0001" VerticalAlignment="Bottom" Margin="3" FontSize="12" HorizontalAlignment="Right" Foreground="{StaticResource SecondTextColorBrush}"></TextBlock>
                         <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
                             <StackPanel>
-                                <TextBlock Margin="5" Text="user" FontSize="24"></TextBlock>
-                                <TextBlock Margin="5" Text="Message" TextWrapping="Wrap" FontSize="18"></TextBlock>
+                                <TextBlock Margin="5" Text="{Binding Users.Name}" FontSize="24"></TextBlock>
+                                <TextBlock Margin="5" Text="{Binding Message}" TextWrapping="Wrap" FontSize="18"></TextBlock>
                             </StackPanel>
                         </Border>
                         <StackPanel Margin="0, 5, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
-                            <TextBlock  Text="Оценка 10/10"  Margin="0, 0, 10, 0"/>
+                            <TextBlock  Text="{Binding Path=Rating, StringFormat=Оценка: {0}/10}"  Margin="0, 0, 10, 0"/>
                         <Button Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
                             <Image Width="30" Height="30" Source="/Resources/Icons/menu.jpg"></Image>
 
@@ -105,11 +105,9 @@
                                     </Style.Triggers>
                                     <Setter Property="ContextMenu">
                                         <Setter.Value>
-                                            <ContextMenu>
-
-                                                <MenuItem Header="Жалоба на комментарий">
-
-                                                </MenuItem>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Жалоба на комментарий">
+                                                    </MenuItem>
                                                     <MenuItem Header="Жалоба на автора комментария"/>
                                                 </ContextMenu>
                                         </Setter.Value>

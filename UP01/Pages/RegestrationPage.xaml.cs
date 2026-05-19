@@ -33,7 +33,9 @@ namespace UP01.Pages
 
         private void RegButtonClick(object sender, RoutedEventArgs e)
         {
-            Auth.New_user(TB_Login.Text, TB_Name.Text, TB_Password.Password.ToString(), TB_Email.Text);
+            if (Auth.New_user(TB_Login.Text, TB_Name.Text, TB_Password.Password.ToString(), TB_Email.Text))
+            { NavigationService.Navigate(new BookCatalog()); }
+            
         }
     }
 }

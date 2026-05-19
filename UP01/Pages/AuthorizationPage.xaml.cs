@@ -29,5 +29,13 @@ namespace UP01.Pages
         {
             NavigationService.Navigate(new RegestrationPage());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(Auth.Check_user(TB_Login.Text, TB_password.Password.ToString()))
+            {
+                NavigationService.Navigate(new BookCatalog());
+            }
+        }
     }
 }

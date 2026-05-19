@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.ViewModels;
 
 namespace UP01.Pages
 {
@@ -20,9 +21,12 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookPage : Page
     {
-        public BookPage()
+        public BookPage(BookViewModel book)
         {
+            this.DataContext = book;
             InitializeComponent();
+            LB_Reviews.ItemsSource = book.book.Reviews.ToList();
+            
         }
     }
 }
