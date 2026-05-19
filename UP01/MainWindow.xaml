@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:UP01"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
-        Topmost="True"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -30,14 +29,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="ToolTip" x:Key="tt_Style">
-            <Setter Property="Placement" Value="Right"></Setter>
-            <Setter Property="Height" Value="55"></Setter>
-            <Setter Property="Margin" Value="20, 0,0, 0"></Setter>
-            <Setter Property="Background" Value="Gray"></Setter>
-            <Setter Property="FontSize" Value="14"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-        </Style>
+        
     </Window.Resources>
 
     <Grid Background="#252525">

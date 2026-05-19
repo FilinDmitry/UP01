@@ -10,8 +10,9 @@ namespace UP01.ViewModels
     public class BookViewModel
     {
         public Books book;
-        public string Avg => Get_Rating();
+        public string Avg => String_Rating();
         public string Name => book.Name;
+        public double Avg_b => Get_Rating(); 
         public string ImagePath => book.ImagePath;
         public string Author => book.Users.Name;
         public string Description => book.Description;
@@ -23,16 +24,28 @@ namespace UP01.ViewModels
         {
             return book.Genre.Where(g => g.Name == Genre).FirstOrDefault() != null;
         }
-        private string Get_Rating()
+        private double Get_Rating()
         {
             ICollection<Reviews> reviews = book.Reviews;
             if (reviews.Count == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return reviews.Average(r => r.Rating);
+            }
+        }
+        private string String_Rating()
+        {
+            double rating = Get_Rating();
+            if (rating == 0)
             {
                 return "0 оценок";
             }
             else
             {
-                return reviews.Average(r => r.Rating).ToString("F1") + "/10";
+                return rating.ToString("F1") + "/10";
             }
 
         }
@@ -43,14 +56,14 @@ namespace UP01.ViewModels
         }
         private string Rating_Book_Page()
         {
-            string rate = Get_Rating();
+            string rate = Get_Rating().ToString("F1");
             if (rate[0] == '0')
             {
-                return "К этой книге 0 отзывов";
+                return "0 оценок";
             }
             else
             {
-                return rate;
+                return "Оценка " + rate + "/10";
             }
         }
     }

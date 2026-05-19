@@ -78,4 +78,12 @@
     <Style TargetType="MenuItem">
         <Setter Property="Background" Value="{StaticResource SecondColorBrush}"></Setter>
     </Style>
+    <Style TargetType="ToolTip" x:Key="tt_Style">
+        <Setter Property="Placement" Value="Right"></Setter>
+        <Setter Property="Height" Value="55"></Setter>
+        <Setter Property="Margin" Value="20, 0,0, 0"></Setter>
+        <Setter Property="Background" Value="{StaticResource SecondColorBrush}"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"></Setter>
+    </Style>
 </ResourceDictionary>

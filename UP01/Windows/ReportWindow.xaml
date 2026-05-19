@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:UP01.Windows"
         mc:Ignorable="d"
         Title="Причина жалобы" Height="250" Width="520"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource MainColorBrush}">
         <StackPanel>
             <TextBlock Text="Укажите причину жалобы"></TextBlock>
-            <TextBox TextWrapping="NoWrap" FontSize="14" Height="Auto" Margin="0" Width="500"></TextBox>
-            <Button Height="30" Width="160">
+            <TextBox x:Name="TB_Comment" TextWrapping="NoWrap" FontSize="14" Height="Auto" Margin="0" Width="500"></TextBox>
+            <Button Height="30" Width="160" Click="Button_Click">
                 <Button.Content>
                     <TextBlock FontSize="16" Margin="0" Text="Отправить"></TextBlock>
                 </Button.Content>

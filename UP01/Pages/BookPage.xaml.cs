@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.Models;
 using UP01.ViewModels;
+using UP01.Windows;
 
 namespace UP01.Pages
 {
@@ -28,5 +30,30 @@ namespace UP01.Pages
             LB_Reviews.ItemsSource = book.book.Reviews.ToList();
             
         }
+
+        private void Menu_Author_Report(object sender, RoutedEventArgs e)
+        {
+            BookViewModel bvm = this.DataContext as BookViewModel;
+            ReportWindow reportWindow = new ReportWindow(ReportType.UserReport, bvm.book.AuthorID, Auth.cur_user.ID);
+            reportWindow.Show();
+        }
+
+        private void Menu_Book_Report(object sender, RoutedEventArgs e)
+        {
+            BookViewModel bvm = this.DataContext as BookViewModel;
+            ReportWindow reportWindow = new ReportWindow(ReportType.BookReport, bvm.book.ID, Auth.cur_user.ID);
+            reportWindow.Show();
+        }
+
+        private void Review_Report_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Reviews review = btn.DataContext as Reviews;
+            ReportWindow reportWindow = new ReportWindow(ReportType.BookReport, review.ID, Auth.cur_user.ID);
+            reportWindow.Show();
+        }
+        
+
+
     }
 }

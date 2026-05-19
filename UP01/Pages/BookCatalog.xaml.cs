@@ -40,20 +40,21 @@ namespace UP01.Pages
         private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             List<BookViewModel> list = lst_book;
-            if (Genre.SelectedItem == null)
+            if (Genre.SelectedItem != null)
             {
                 list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
             }
 
-            switch (Sort.SelectedItem)
+            switch (Sort.SelectedIndex)
             {
-                case ("По рейтингу"):
-                    list = list.OrderByDescending(b => b.Avg).ToList();
+                case (0):
+                    list = list.OrderByDescending(b => b.Avg_b).ToList();
                     break;
-                case ("По имени"):
+                case (1):
                     list = list.OrderBy(b => b.Name).ToList();
                     break;
             }
+            LB_catalog.ItemsSource = null;
             LB_catalog.ItemsSource = list;
         }
 
