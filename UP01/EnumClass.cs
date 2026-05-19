@@ -16,6 +16,7 @@ namespace UP01
     public enum ApplicationType
     {
         BecomeAuthorApplication,
-        UnfreezeApplication
+        UnfreezeApplication,
+        BookUnfreeze
     }
 }

@@ -21,11 +21,19 @@ namespace UP01.Windows
     public partial class ApplicationWindow : Window
     {
         ApplicationType type;
-        int UserID; 
+        int UserID;
+        int BookID;
         public ApplicationWindow(ApplicationType type, int UserID)
         {
             this.type = type;
             this.UserID = UserID;
+            InitializeComponent();
+        }
+        public ApplicationWindow(int UserID, int BookID)
+        {
+            this.type = ApplicationType.BookUnfreeze;
+            this.UserID = UserID;
+            this.BookID = BookID;
             InitializeComponent();
         }
 
@@ -54,6 +62,21 @@ namespace UP01.Windows
                         Message = TB_Comment.Text
                     };
                     Core.Context.ApplicationsToBecomeAuthor.Add(application_a);
+                    Core.Context.SaveChanges();
+                    break;
+                case ApplicationType.BookUnfreeze:
+                    if (TB_Comment.Text == null)
+                    {
+                        MessageBox.Show("введите причину почему мы должны вас разблокировать");
+                        return;
+                    }
+                    ApplicationsToUnfreeze application_bf = new ApplicationsToUnfreeze()
+                    {
+                        UserID = UserID,
+                        Message = TB_Comment.Text,
+                        BookID = BookID
+                    };
+                    Core.Context.ApplicationsToUnfreeze.Add(application_bf);
                     Core.Context.SaveChanges();
                     break;
             }

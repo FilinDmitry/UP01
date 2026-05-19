@@ -24,9 +24,13 @@ namespace UP01.Pages
     {
         public ProfilePage()
         {
-            this.DataContext = Core.Context.Users.First();
+            this.DataContext = Auth.cur_user;
             InitializeComponent();
-            LB_comments.ItemsSource = Core.Context.Users.First().Reviews.ToList();
+            if (Auth.cur_user.isFreeze)
+            {
+                SP_Freeze.Visibility = Visibility.Visible;
+            }
+            LB_comments.ItemsSource = Auth.cur_user.Reviews.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
