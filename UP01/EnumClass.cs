@@ -12,4 +12,10 @@ namespace UP01
         BookReport,
         ReviewReport
     }
+
+    public enum ApplicationType
+    {
+        BecomeAuthorApplication,
+        UnfreezeApplication
+    }
 }

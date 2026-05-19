@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.Windows;
 
 namespace UP01.Pages
 {
@@ -22,7 +23,15 @@ namespace UP01.Pages
     {
         public FreezePage()
         {
+            this.DataContext = Auth.cur_user;
+            
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationWindow window = new ApplicationWindow(ApplicationType.UnfreezeApplication, Auth.cur_user.ID);
+            window.Show();
         }
     }
 }

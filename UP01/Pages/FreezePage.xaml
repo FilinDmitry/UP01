@@ -10,12 +10,12 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="Информация о блокировке (Login)" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="{Binding Name, StringFormat=Информация о блокировке {0}}" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
 
             <TextBlock TextAlignment="Justify" Text="Ваш аккаунт был заморожен, вы не можете оставлять комментарии, писать обзоры или создавать новые книги (для авторов), но вы по прежнему можете читать книги и добавлять их в свои списки." TextWrapping="Wrap"></TextBlock>
-        <TextBlock TextAlignment="Justify" Text="Reason to ban"></TextBlock>
+            <TextBlock TextAlignment="Justify" Text="{Binding ReasonToFreeze}"></TextBlock>
         <TextBlock Text="Если вы не согласны с заморозкой акканта вы можете её оспорить"></TextBlock>
-        <Button Content="Оспорить заморозку"></Button>
+        <Button Content="Оспорить заморозку" Click="Button_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

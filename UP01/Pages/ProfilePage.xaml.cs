@@ -36,7 +36,7 @@ namespace UP01.Pages
 
         private void Became_author_click(object sender, RoutedEventArgs e)
         {
-            ApplicationWindow window = new ApplicationWindow();
+            ApplicationWindow window = new ApplicationWindow(ApplicationType.BecomeAuthorApplication, Auth.cur_user.ID);
             window.Show();
         }
     }
