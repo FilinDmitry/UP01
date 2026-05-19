@@ -114,6 +114,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BookInListViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="Windows\ApplicationWindow.xaml.cs">
       <DependentUpon>ApplicationWindow.xaml</DependentUpon>

@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:UP01.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="730"
-      Title="BookListPage">
+      Title="BookListPage"
+      Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -76,10 +77,10 @@
                 </TextBlock>
             </Grid>
         </StackPanel>
-        <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
+        <TabControl x:Name="ListTabControl" SelectionChanged="TabControl_SelectionChanged" Background="{StaticResource MainColorBrush}" Grid.Row="1">
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ListBox BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox x:Name="LB_ReadingList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -87,7 +88,7 @@
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
                                         <StackPanel>
                                             <Image Source="/Resources/Icons/profile.png" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
-                                            <TextBlock Text="Name" Margin="5" FontSize="16"></TextBlock>
+                                            <TextBlock Text="{Binding Status}" Margin="5" FontSize="16"></TextBlock>
                                             <TextBlock Text="Автор" Margin="5, 0, 5, 0" FontSize="16"></TextBlock>
                                             <ComboBox Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
                                         </StackPanel>
