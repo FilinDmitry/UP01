@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:UP01.Windows"
         mc:Ignorable="d"
         Title="ApplicationWindow" Height="250" Width="520"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid Background="{StaticResource MainColorBrush}">
         <StackPanel>
             <TextBlock Text="Укажите комментарий"></TextBlock>
