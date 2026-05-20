@@ -146,7 +146,7 @@ namespace UP01.Pages
                 return;
             }
             ReadingList rl = book.r_list;
-            rl.BookStatus.ID = Core.Context.BookStatus.First(bs => bs.Name == book.status).ID;
+            rl.BookStatus = Core.Context.BookStatus.First(bs => bs.Name == book.status);
             Update_lists();
 
 
