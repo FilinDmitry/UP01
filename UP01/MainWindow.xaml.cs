@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.Models;
 using UP01.Pages;
 
 namespace UP01
@@ -23,6 +24,7 @@ namespace UP01
     {
         public MainWindow()
         {
+            
             InitializeComponent();
             
         }
@@ -72,6 +74,12 @@ namespace UP01
                 case ("El6"):
                     MainFrame.NavigationService.Navigate(new FreezePage());
                     break;
+                case ("Back"):
+                    if (MainFrame.NavigationService.CanGoBack)
+                    {
+                        MainFrame.NavigationService.GoBack();
+                    }
+                    break;
             }
         }
 
@@ -81,17 +89,22 @@ namespace UP01
             {
                 if (Auth.cur_user.isFreeze)
                 {
+                    El4.Visibility = Visibility.Collapsed;
+                    El5.Visibility = Visibility.Collapsed;
                     El6.Visibility = Visibility.Visible;
                 }
                 else if (Auth.cur_user.RoleID == 2)
                 {
                     El4.Visibility = Visibility.Visible;
+                    El5.Visibility = Visibility.Collapsed;
                 }
                 else if (Auth.cur_user.RoleID == 3)
                 {
                     El5.Visibility = Visibility.Visible;
+                    El4.Visibility = Visibility.Collapsed;
                 }
             }
+            else { El6.Visibility = Visibility.Collapsed; El5.Visibility = Visibility.Collapsed; El4.Visibility = Visibility.Collapsed; }
         }
     }
 }

@@ -14,7 +14,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Author" FontSize="30"></TextBlock>
-        <Button Content="Добавить книгу" Width="300" HorizontalAlignment="Right"></Button>
+        <Button x:Name="Add" Content="Добавить книгу" Width="300" HorizontalAlignment="Right" Click="Add_Click"></Button>
         <TabControl Background="{StaticResource MainColorBrush}" Grid.Row="1">
 
             <TabItem Header="Мои книги">

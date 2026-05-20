@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AuthAndReg.cs" />
+    <Compile Include="BookCreationValidation.cs" />
     <Compile Include="EnumClass.cs" />
     <Compile Include="Models\ApplicationsToBecomeAuthor.cs">
       <DependentUpon>Model.tt</DependentUpon>

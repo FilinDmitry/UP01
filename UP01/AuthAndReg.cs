@@ -13,7 +13,7 @@ namespace UP01
     static class Auth
     {
         static public bool is_reg = false;
-        static public Users cur_user = Core.Context.Users.First();
+        static public Users cur_user = Core.Context.Users.First(i => i.RoleID == 2);
         private static List<Users> lst_users = Core.Context.Users.ToList();
         private static bool Emailvalidation(string email)
         {
