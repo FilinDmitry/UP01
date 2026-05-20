@@ -9,6 +9,7 @@
       Title="BookListPage"
       Loaded="Page_Loaded">
 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"></RowDefinition>
@@ -21,7 +22,7 @@
                         <ColumnDefinition Width="0"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox MinWidth="400" x:Name="Search" Grid.Column="1"></TextBox>
+                    <TextBox TextChanged="Search_TextChanged" MinWidth="400" x:Name="Search" Grid.Column="1"></TextBox>
                     <TextBlock Margin="25, 0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="20" Foreground="{StaticResource TextColorBrush}" Text="Введите поисковый запрос" Grid.Column="1">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -39,7 +40,7 @@
 
             </Border>
             <Grid>
-                <ComboBox  x:Name="Genre" Style="{StaticResource Combo}" FontSize="14">
+                <ComboBox SelectionChanged="Genre_SelectionChanged" x:Name="Genre" Style="{StaticResource Combo}" FontSize="14">
                 </ComboBox>
                 <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="16" Foreground="{StaticResource TextColorBrush}" Text="Жанр" Grid.Column="1">
                     <TextBlock.Style>
@@ -55,7 +56,7 @@
                 </TextBlock>
             </Grid>
             <Grid>
-                <ComboBox  Width="140" x:Name="Sort" Style="{StaticResource Combo}" FontSize="14">
+                <ComboBox SelectionChanged="Genre_SelectionChanged" Width="140" x:Name="Sort" Style="{StaticResource Combo}" FontSize="14">
                     <ComboBoxItem>
                         <TextBlock Text="По рейтингу"></TextBlock>
                     </ComboBoxItem>
@@ -90,7 +91,7 @@
                                             <Image Source="{Binding ImagePath}" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
                                             <TextBlock Text="{Binding Name}" Margin="5" FontSize="16"></TextBlock>
                                             <TextBlock Text="{Binding Author}" Margin="5, 0, 5, 0" FontSize="16"></TextBlock>
-                                            <ComboBox SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding lists}" SelectedItem="{Binding Status}" Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
+                                            <ComboBox SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding DataContext.lists, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}" SelectedItem="{Binding Status}" Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
                                         </StackPanel>
                                     </Border>
                                     <Border Margin="3" CornerRadius="3" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{StaticResource SecondColorBrush}">

@@ -39,23 +39,7 @@ namespace UP01.Pages
 
         private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<BookViewModel> list = lst_book;
-            if (Genre.SelectedItem != null)
-            {
-                list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
-            }
-
-            switch (Sort.SelectedIndex)
-            {
-                case (0):
-                    list = list.OrderByDescending(b => b.Avg_b).ToList();
-                    break;
-                case (1):
-                    list = list.OrderBy(b => b.Name).ToList();
-                    break;
-            }
-            LB_catalog.ItemsSource = null;
-            LB_catalog.ItemsSource = list;
+           FilterList();
         }
 
         private void LB_catalog_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -71,6 +55,32 @@ namespace UP01.Pages
             Button btn = sender as Button;
             BookViewModel bvm = btn.DataContext as BookViewModel;
             NavigationService.Navigate(new BookPage(bvm));
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterList();
+        }
+        private void FilterList()
+        {
+            List<BookViewModel> list = lst_book;
+            if (Genre.SelectedItem != null)
+            {
+                list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
+            }
+
+            switch (Sort.SelectedIndex)
+            {
+                case (0):
+                    list = list.OrderByDescending(b => b.Avg_b).ToList();
+                    break;
+                case (1):
+                    list = list.OrderBy(b => b.Name).ToList();
+                    break;
+            }
+            list = list.Where(i => i.Name.Contains(Search.Text) || i.Author.Contains(Search.Text)).ToList();
+            LB_catalog.ItemsSource = null;
+            LB_catalog.ItemsSource = list;
         }
     }
 }

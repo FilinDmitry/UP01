@@ -22,6 +22,7 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookListPage : Page
     {
+
         ListBox LB_ReadingList;
         List<BookInListViewModel> lst_book;
         List<BookInListViewModel> lst_book_readed;
@@ -45,8 +46,6 @@ namespace UP01.Pages
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            
             TabControl tab = sender as TabControl;
             TabItem item = tab.SelectedItem as TabItem;
             List<BookInListViewModel> filter = new List<BookInListViewModel>();
@@ -54,11 +53,9 @@ namespace UP01.Pages
             {
                 return;
             }
-            
             switch (item.Tag.ToString())
             {
                 case ("Все"):
-                    filter = lst_book;
                     break;
                 case ("Прочитано"):
                     filter = lst_book_readed;
@@ -72,6 +69,7 @@ namespace UP01.Pages
                 case ("Заброшено"):
                     filter = lst_book_dust;
                     break;
+                
             }
             LB_ReadingList.ItemsSource = filter;
         }
@@ -145,9 +143,7 @@ namespace UP01.Pages
                 Update_lists();
                 return;
             }
-            ReadingList rl = book.r_list;
-            rl.BookStatus = Core.Context.BookStatus.First(bs => bs.Name == book.status);
-            Update_lists();
+            
 
 
         }
@@ -157,6 +153,55 @@ namespace UP01.Pages
             lst_book_planed = lst_book.Where(b => b.Status == "В планах").ToList();
             lst_book_reading = lst_book.Where(b => b.Status == "Читаю").ToList();
             lst_book_readed = lst_book.Where(b => b.Status == "Прочитано").ToList();
+        }
+        private List<BookInListViewModel> FilterList(List<BookInListViewModel> filter)
+        {
+            List<BookInListViewModel> list = filter;
+            TabItem ti = ListTabControl.SelectedItem as TabItem;
+            switch (ti.Tag.ToString())
+            {
+                case ("Все"):
+                    list = lst_book;
+                    break;
+                case ("Прочитано"):
+                    list = lst_book_readed;
+                    break;
+                case ("Читаю"):
+                    list = lst_book_reading;
+                    break;
+                case ("В планах"):
+                    list = lst_book_planed;
+                    break;
+                case ("Заброшено"):
+                    list = lst_book_dust;
+                    break;
+            }
+            if (Genre.SelectedItem != null)
+            {
+                list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
+            }
+
+            switch (Sort.SelectedIndex)
+            {
+                case (0):
+                    list = list.OrderByDescending(b => b.Avg_b).ToList();
+                    break;
+                case (1):
+                    list = list.OrderBy(b => b.Name).ToList();
+                    break;
+            }
+            list = list.Where(i => i.Name.Contains(Search.Text) || i.Author.Contains(Search.Text)).ToList();
+            return list;
+        }
+
+        private void Genre_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }

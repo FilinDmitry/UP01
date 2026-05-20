@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="0"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox MinWidth="350" x:Name="Search" Grid.Column="1"></TextBox>
+                <TextBox TextChanged="Search_TextChanged" MinWidth="350" x:Name="Search" Grid.Column="1"></TextBox>
                 <TextBlock Margin="25, 0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="20" Foreground="{StaticResource TextColorBrush}" Text="Введите поисковый запрос" Grid.Column="1">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
