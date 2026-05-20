@@ -28,9 +28,9 @@ namespace UP01.Pages
            
             InitializeComponent();
             Update();
-            
 
             
+
         }
 
         private void Change_user_role(object sender, SelectionChangedEventArgs e)
@@ -71,6 +71,18 @@ namespace UP01.Pages
 
         private void Update()
         {
+            List<UnfreezeApplicationViewModel> ask_list = Core.Context.ApplicationsToUnfreeze.Select(i => new UnfreezeApplicationViewModel()
+            {
+                application = i
+
+            }).ToList();
+            CollectionView view_ask = (CollectionView)CollectionViewSource.GetDefaultView(ask_list);
+            PropertyGroupDescription groupDescription_ask = new PropertyGroupDescription("group");
+            view_ask.GroupDescriptions.Add(groupDescription_ask);
+            view_ask.SortDescriptions.Add(new SortDescription("group", ListSortDirection.Ascending));
+            LB_Unfreeze.ItemsSource = null;
+            LB_Unfreeze.ItemsSource = view_ask;
+
             List<ReportsViewModel> reports_list = Core.Context.Reports.Select(i => new ReportsViewModel()
             {
                 report = i,
@@ -79,6 +91,7 @@ namespace UP01.Pages
             PropertyGroupDescription groupDescription_rep = new PropertyGroupDescription("group");
             view_rep.GroupDescriptions.Add(groupDescription_rep);
             view_rep.SortDescriptions.Add(new SortDescription("group", ListSortDirection.Ascending));
+            LB_reports.ItemsSource = null;
             LB_reports.ItemsSource = view_rep;
 
             var freeze_list = Core.Context.Users.Where(i => i.isFreeze).Select(u => new FreezeViewModel()
@@ -148,6 +161,7 @@ namespace UP01.Pages
                     break;
             }
             Core.Context.SaveChanges();
+            Update();
         }
 
         private void RerortApprove_Click(object sender, RoutedEventArgs e)
@@ -155,6 +169,7 @@ namespace UP01.Pages
             Button btn = sender as Button;
             ReportsViewModel rvm = btn.DataContext as ReportsViewModel;
             rvm.Freeze();
+            Update();
         }
 
         private void ReportRegret_Click(object sender, RoutedEventArgs e)
@@ -164,6 +179,7 @@ namespace UP01.Pages
             rvm.report.isClose = true;
             rvm.report.Approved = false;
             Core.Context.SaveChanges();
+            Update();
         }
 
         private void AboutReport_Click(object sender, RoutedEventArgs e)
@@ -179,6 +195,24 @@ namespace UP01.Pages
             {
                 MessageBox.Show("В разработке");
             }
+        }
+
+        private void AskUnfreezeApprove_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            UnfreezeApplicationViewModel uavm = btn.DataContext as UnfreezeApplicationViewModel;
+            uavm.Unfreeze();
+            Update();
+        }
+
+        private void AskUnfreezeRegret_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            UnfreezeApplicationViewModel uavm = btn.DataContext as UnfreezeApplicationViewModel;
+            uavm.application.isClose = true;
+            uavm.application.Approved = false;
+            Core.Context.SaveChanges();
+            Update();
         }
     }
 }

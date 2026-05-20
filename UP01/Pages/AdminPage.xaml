@@ -13,7 +13,7 @@
             
             <!--Нытики-->
             <TabItem Header="Жалобы" Tag="Жалобы">
-                <ListBox x:Name="LB_reports" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="LB_reports" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
@@ -89,7 +89,7 @@
             
             <!--Недопонятые гении-->
             <TabItem Header="Заявки на авторство" Tag="Заявки на авторство">
-                <ListBox x:Name="LB_Author" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="LB_Author" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
@@ -114,13 +114,13 @@
             
             <!--Не брать трубку-->
             <TabItem Header="Заявки на разморозку" Tag="Заявки на разморозку">
-                <ListBox x:Name="LB_Unfreeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="LB_Unfreeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
-                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                        <TextBlock  Text="{Binding Name}" FontWeight="Bold" FontSize="24"/>
                                     </Border>
 
 
@@ -132,18 +132,18 @@
                         <DataTemplate>
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                             <StackPanel>
-                                    <TextBlock Text="Login"></TextBlock>
+                                    <TextBlock Text="{Binding Login}"></TextBlock>
                                 <StackPanel>
                                     <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
-                                        <TextBlock Text="Reason for freeze" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding Reason}" TextWrapping="Wrap"></TextBlock>
                                     </Border>
-                                    <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
 
                                 </StackPanel>
                                 <Grid>
                                     <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                        <Button Content="Принять" Height="45" Margin="10"></Button>
-                                        <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                        <Button Click="AskUnfreezeApprove_Click" Content="Принять" Height="45" Margin="10"></Button>
+                                            <Button Click="AskUnfreezeRegret_Click" Content="Отклонить" Height="45" Margin="10"></Button>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -156,7 +156,7 @@
             
             <!--Пермаментный бан на сервере-->
             <TabItem  Header="Список заморозки" Tag="Список заморозки">
-                <ListBox x:Name="LB_freeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="LB_freeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
