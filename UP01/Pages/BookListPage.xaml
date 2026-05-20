@@ -39,7 +39,7 @@
 
             </Border>
             <Grid>
-                <ComboBox x:Name="Genre" Style="{StaticResource Combo}" FontSize="14">
+                <ComboBox  x:Name="Genre" Style="{StaticResource Combo}" FontSize="14">
                 </ComboBox>
                 <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" FontSize="16" Foreground="{StaticResource TextColorBrush}" Text="Жанр" Grid.Column="1">
                     <TextBlock.Style>
@@ -55,7 +55,7 @@
                 </TextBlock>
             </Grid>
             <Grid>
-                <ComboBox Width="140" x:Name="Sort" Style="{StaticResource Combo}" FontSize="14">
+                <ComboBox  Width="140" x:Name="Sort" Style="{StaticResource Combo}" FontSize="14">
                     <ComboBoxItem>
                         <TextBlock Text="По рейтингу"></TextBlock>
                     </ComboBoxItem>
@@ -77,24 +77,24 @@
                 </TextBlock>
             </Grid>
         </StackPanel>
-        <TabControl x:Name="ListTabControl" SelectionChanged="TabControl_SelectionChanged" Background="{StaticResource MainColorBrush}" Grid.Row="1">
+        <TabControl SelectionChanged="TabControl_SelectionChanged" x:Name="ListTabControl"  Background="{StaticResource MainColorBrush}" Grid.Row="1">
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ListBox x:Name="LB_ReadingList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListBox MouseDoubleClick="LB_ReadingList_MouseDoubleClick" x:Name="LB_ReadingList" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
 
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
                                         <StackPanel>
-                                            <Image Source="/Resources/Icons/profile.png" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
-                                            <TextBlock Text="{Binding Status}" Margin="5" FontSize="16"></TextBlock>
-                                            <TextBlock Text="Автор" Margin="5, 0, 5, 0" FontSize="16"></TextBlock>
-                                            <ComboBox Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
+                                            <Image Source="{Binding ImagePath}" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
+                                            <TextBlock Text="{Binding Name}" Margin="5" FontSize="16"></TextBlock>
+                                            <TextBlock Text="{Binding Author}" Margin="5, 0, 5, 0" FontSize="16"></TextBlock>
+                                            <ComboBox SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding lists}" SelectedItem="{Binding Status}" Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
                                         </StackPanel>
                                     </Border>
                                     <Border Margin="3" CornerRadius="3" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{StaticResource SecondColorBrush}">
-                                        <TextBlock Margin="3" Text="10/10" FontSize="14"/>
+                                        <TextBlock Margin="3" Text="{Binding Avg}" FontSize="14"/>
                                     </Border>
                                 </Grid>
                             </DataTemplate>

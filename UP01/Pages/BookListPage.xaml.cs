@@ -32,36 +32,56 @@ namespace UP01.Pages
         {
             
             InitializeComponent();
+            Genre.ItemsSource = Core.Context.Genre.Select(i => i.Name).ToList();
             lst_book = Core.Context.Books.Select(
                 b => new BookInListViewModel()
                 {
                     book = b
                 }
                 ).ToList();
-           
+            
+            
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+            
             TabControl tab = sender as TabControl;
             TabItem item = tab.SelectedItem as TabItem;
+            List<BookInListViewModel> filter = new List<BookInListViewModel>();
+            if (LB_ReadingList == null)
+            {
+                return;
+            }
+            lst_book_dust = lst_book.Where(b => b.Status == "Заброшенно").ToList();
+            lst_book_planed = lst_book.Where(b => b.Status == "В планах").ToList();
+            lst_book_reading = lst_book.Where(b => b.Status == "Читаю").ToList();
+            lst_book_readed = lst_book.Where(b => b.Status == "Прочитано").ToList();
             switch (item.Tag.ToString())
             {
                 case ("Все"):
+                    filter = lst_book;
                     break;
                 case ("Прочитано"):
+                    filter = lst_book_readed;
                     break;
                 case ("Читаю"):
+                    filter = lst_book_reading;
                     break;
                 case ("В планах"):
+                    filter = lst_book_planed; 
                     break;
                 case ("Заброшено"):
+                    filter = lst_book_dust;
                     break;
             }
+            LB_ReadingList.ItemsSource = filter;
         }
         void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ListBox lbx = FindVisualChildByName<ListBox>(this.ListTabControl, "LB_ReadingList");
+            LB_ReadingList = lbx;
             lbx.ItemsSource = lst_book;
         }
 
@@ -82,7 +102,53 @@ namespace UP01.Pages
             return child;
         }
 
-        // Использование
+        private void LB_ReadingList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BookInListViewModel bvm = LB_ReadingList.SelectedItem as BookInListViewModel;
+            if (bvm != null)
+            {
+                NavigationService.Navigate(new BookPage(bvm));
+            }
+        }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            ComboBox cb = sender as ComboBox;
+            BookInListViewModel book = cb.DataContext as BookInListViewModel;
+            if (book == null)
+            {
+                return;
+
+            }
+            if (cb.SelectedIndex == 0)
+            {
+                if (book.Status != "")
+                {
+                    ReadingList rla = book.r_list;
+                    Core.Context.ReadingList.Remove(rla);
+                    Core.Context.SaveChanges();
+                    return;
+                }
+                return;
+            }
+            
+            if (book.Status == "")
+            {
+                
+                ReadingList readingList = new ReadingList()
+                {
+                    BookID = book.book.ID,
+                    UserID = Auth.cur_user.ID,
+                    StatusID = Core.Context.BookStatus.First(bs => bs.Name == book.status).ID
+                };
+                Core.Context.ReadingList.Add(readingList);
+                Core.Context.SaveChanges();
+                
+                return;
+            }
+            ReadingList rl = book.r_list;
+            rl.BookStatus.ID = Core.Context.BookStatus.First(bs => bs.Name == cb.SelectedItem.ToString()).ID;
+        }
     }
 }
