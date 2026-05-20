@@ -24,6 +24,7 @@ namespace UP01
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void ListV_MouseEnter(object sender, MouseEventArgs e)
@@ -71,6 +72,25 @@ namespace UP01
                 case ("El6"):
                     MainFrame.NavigationService.Navigate(new FreezePage());
                     break;
+            }
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (Auth.cur_user != null)
+            {
+                if (Auth.cur_user.isFreeze)
+                {
+                    El6.Visibility = Visibility.Visible;
+                }
+                else if (Auth.cur_user.RoleID == 2)
+                {
+                    El4.Visibility = Visibility.Visible;
+                }
+                else if (Auth.cur_user.RoleID == 3)
+                {
+                    El5.Visibility = Visibility.Visible;
+                }
             }
         }
     }
