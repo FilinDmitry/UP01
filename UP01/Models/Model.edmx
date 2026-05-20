@@ -86,7 +86,7 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="isClose" Type="bit" Nullable="false" />
           <Property Name="Approved" Type="bit" />
-          <Property Name="ReportType" Type="int" />
+          <Property Name="ReportType" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ReportType">
           <Key>
@@ -285,7 +285,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reports_ReportType">
-          <End Role="ReportType" Type="Self.ReportType" Multiplicity="0..1" />
+          <End Role="ReportType" Type="Self.ReportType" Multiplicity="1" />
           <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReportType">
@@ -799,8 +799,8 @@
             <End Role="Books" EntitySet="Books" />
             <End Role="Genre" EntitySet="Genre" />
           </AssociationSet>
-          <EntitySet Name="Reports" EntityType="LibraryUP11Model.Reports" />
           <EntitySet Name="ReportType" EntityType="LibraryUP11Model.ReportType" />
+          <EntitySet Name="Reports" EntityType="LibraryUP11Model.Reports" />
           <AssociationSet Name="FK_Reports_ReportType" Association="LibraryUP11Model.FK_Reports_ReportType">
             <End Role="ReportType" EntitySet="ReportType" />
             <End Role="Reports" EntitySet="Reports" />
@@ -822,6 +822,14 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           </EntityContainer>
+        <EntityType Name="ReportType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.FK_Reports_ReportType" FromRole="ReportType" ToRole="Reports" />
+        </EntityType>
         <EntityType Name="Reports">
           <Key>
             <PropertyRef Name="ID" />
@@ -831,23 +839,15 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="isClose" Type="Boolean" Nullable="false" />
           <Property Name="Approved" Type="Boolean" />
-          <Property Name="ReportType" Type="Int32" />
+          <Property Name="ReportType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ReportType1" Relationship="LibraryUP11Model.FK_Reports_ReportType" FromRole="Reports" ToRole="ReportType" />
           <NavigationProperty Name="Users" Relationship="LibraryUP11Model.FK_Reports_Users" FromRole="Reports" ToRole="Users" />
           <NavigationProperty Name="Books" Relationship="LibraryUP11Model.BookReports" FromRole="Reports" ToRole="Books" />
           <NavigationProperty Name="Reviews" Relationship="LibraryUP11Model.ReviewReports" FromRole="Reports" ToRole="Reviews" />
           <NavigationProperty Name="Users1" Relationship="LibraryUP11Model.UserReports" FromRole="Reports" ToRole="Users" />
         </EntityType>
-        <EntityType Name="ReportType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.FK_Reports_ReportType" FromRole="ReportType" ToRole="Reports" />
-        </EntityType>
         <Association Name="FK_Reports_ReportType">
-          <End Type="LibraryUP11Model.ReportType" Role="ReportType" Multiplicity="0..1" />
+          <End Type="LibraryUP11Model.ReportType" Role="ReportType" Multiplicity="1" />
           <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ReportType">
@@ -1005,6 +1005,14 @@
               <ScalarProperty Name="ID" ColumnName="GenreID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ReportType">
+            <EntityTypeMapping TypeName="LibraryUP11Model.ReportType">
+              <MappingFragment StoreEntitySet="ReportType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Reports">
             <EntityTypeMapping TypeName="LibraryUP11Model.Reports">
               <MappingFragment StoreEntitySet="Reports">
@@ -1013,14 +1021,6 @@
                 <ScalarProperty Name="isClose" ColumnName="isClose" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReportType">
-            <EntityTypeMapping TypeName="LibraryUP11Model.ReportType">
-              <MappingFragment StoreEntitySet="ReportType">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

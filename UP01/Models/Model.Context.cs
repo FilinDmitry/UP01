@@ -35,7 +35,7 @@ namespace UP01.Models
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<ReportType> ReportType { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
     }
 }

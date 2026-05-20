@@ -13,13 +13,13 @@
             
             <!--Нытики-->
             <TabItem Header="Жалобы" Tag="Жалобы">
-                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox x:Name="LB_reports" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
-                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                        <TextBlock  Text="{Binding Name}" FontWeight="Bold" FontSize="24"/>
                                     </Border>
                                     
 
@@ -31,18 +31,18 @@
                         <DataTemplate>
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                                 <StackPanel>
-                                    <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding comment}" TextWrapping="Wrap"></TextBlock>
                                     <StackPanel>
-                                        <TextBlock Text="Жалоба на (Type): с именем" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Text="{Binding info}" TextWrapping="Wrap"></TextBlock>
 
                                     </StackPanel>
                                     <Grid>
                                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                            <Button Content="Принять" Height="45" Margin="10"></Button>
-                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                            <Button Click="RerortApprove_Click" Content="Принять" Height="45" Margin="10"></Button>
+                                            <Button Click="ReportRegret_Click" Content="Отклонить" Height="45" Margin="10"></Button>
 
                                         </StackPanel>
-                                        <Button Content="Подробнее" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
+                                        <Button Click="AboutReport_Click" Content="Подробнее" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
                                     </Grid>
                                 </StackPanel>
                             </Border>

@@ -8,7 +8,7 @@ namespace UP01
 {
     public enum ReportType
     {
-        UserReport,
+        UserReport = 1,
         BookReport,
         ReviewReport
     }

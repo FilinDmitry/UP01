@@ -26,8 +26,8 @@
         <AssociationConnector Association="LibraryUP11Model.FK_Reviews_Users" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.FK_Users_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.GenreBook" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LibraryUP11Model.Reports" Width="1.5" PointX="0.75" PointY="13.125" />
         <EntityTypeShape EntityType="LibraryUP11Model.ReportType" Width="1.5" PointX="0.75" PointY="17.875" />
+        <EntityTypeShape EntityType="LibraryUP11Model.Reports" Width="1.5" PointX="10.5" PointY="15.375" />
         <AssociationConnector Association="LibraryUP11Model.FK_Reports_ReportType" />
         <AssociationConnector Association="LibraryUP11Model.FK_Reports_Users" />
         <AssociationConnector Association="LibraryUP11Model.BookReports" />

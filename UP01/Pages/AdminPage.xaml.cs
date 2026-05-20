@@ -25,18 +25,11 @@ namespace UP01.Pages
     {
         public AdminPage()
         {
-            
            
-
-
-
-            
-            
-
-            InitializeComponent();
-            
             InitializeComponent();
             Update();
+            
+
             
         }
 
@@ -78,6 +71,16 @@ namespace UP01.Pages
 
         private void Update()
         {
+            List<ReportsViewModel> reports_list = Core.Context.Reports.Select(i => new ReportsViewModel()
+            {
+                report = i,
+            }).ToList();
+            CollectionView view_rep = (CollectionView)CollectionViewSource.GetDefaultView(reports_list);
+            PropertyGroupDescription groupDescription_rep = new PropertyGroupDescription("group");
+            view_rep.GroupDescriptions.Add(groupDescription_rep);
+            view_rep.SortDescriptions.Add(new SortDescription("group", ListSortDirection.Ascending));
+            LB_reports.ItemsSource = view_rep;
+
             var freeze_list = Core.Context.Users.Where(i => i.isFreeze).Select(u => new FreezeViewModel()
             {
                 freezeType = freezeType.User,
@@ -127,6 +130,8 @@ namespace UP01.Pages
         {
             Button btn = sender as Button;
             FreezeViewModel freeze = btn.DataContext as FreezeViewModel;
+            freeze.UnFreeze();
+            Update();
         }
 
         private void TB_TextChanged(object sender, TextChangedEventArgs e)
@@ -143,6 +148,37 @@ namespace UP01.Pages
                     break;
             }
             Core.Context.SaveChanges();
+        }
+
+        private void RerortApprove_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ReportsViewModel rvm = btn.DataContext as ReportsViewModel;
+            rvm.Freeze();
+        }
+
+        private void ReportRegret_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ReportsViewModel rvm = btn.DataContext as ReportsViewModel;
+            rvm.report.isClose = true;
+            rvm.report.Approved = false;
+            Core.Context.SaveChanges();
+        }
+
+        private void AboutReport_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ReportsViewModel rvm = btn.DataContext as ReportsViewModel;
+            Page p = rvm.NavigateTo();
+            if (p != null)
+            {
+                NavigationService.Navigate(p);
+            }
+            else
+            {
+                MessageBox.Show("В разработке");
+            }
         }
     }
 }

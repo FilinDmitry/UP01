@@ -19,7 +19,7 @@ namespace UP01.Models
         public string Description { get; set; }
         public bool isClose { get; set; }
         public Nullable<bool> Approved { get; set; }
-        public Nullable<int> ReportType { get; set; }
+        public int ReportType { get; set; }
     
         public virtual ReportType ReportType1 { get; set; }
         public virtual Users Users { get; set; }
