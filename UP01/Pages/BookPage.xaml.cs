@@ -52,7 +52,7 @@ namespace UP01.Pages
         {
             Button btn = sender as Button;
             Reviews review = btn.DataContext as Reviews;
-            ReportWindow reportWindow = new ReportWindow(ReportType.BookReport, review.ID, Auth.cur_user.ID);
+            ReportWindow reportWindow = new ReportWindow(ReportType.ReviewReport, review.ID, Auth.cur_user.ID);
             reportWindow.Show();
         }
 
@@ -72,7 +72,7 @@ namespace UP01.Pages
             if (newReview.is_created)
             {
                 MessageBox.Show("Отзыв успешно создан");
-                LB_Reviews.ItemsSource = 
+                LB_Reviews.ItemsSource = null;
                 LB_Reviews.ItemsSource = bookView.book.Reviews.ToList();
             }
         }
