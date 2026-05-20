@@ -39,8 +39,8 @@ namespace UP01.Pages
                     book = b
                 }
                 ).ToList();
-            
-            
+
+            Update_lists();
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,10 +54,7 @@ namespace UP01.Pages
             {
                 return;
             }
-            lst_book_dust = lst_book.Where(b => b.Status == "Заброшенно").ToList();
-            lst_book_planed = lst_book.Where(b => b.Status == "В планах").ToList();
-            lst_book_reading = lst_book.Where(b => b.Status == "Читаю").ToList();
-            lst_book_readed = lst_book.Where(b => b.Status == "Прочитано").ToList();
+            
             switch (item.Tag.ToString())
             {
                 case ("Все"):
@@ -128,6 +125,7 @@ namespace UP01.Pages
                     ReadingList rla = book.r_list;
                     Core.Context.ReadingList.Remove(rla);
                     Core.Context.SaveChanges();
+                    Update_lists();
                     return;
                 }
                 return;
@@ -144,11 +142,21 @@ namespace UP01.Pages
                 };
                 Core.Context.ReadingList.Add(readingList);
                 Core.Context.SaveChanges();
-                
+                Update_lists();
                 return;
             }
             ReadingList rl = book.r_list;
-            rl.BookStatus.ID = Core.Context.BookStatus.First(bs => bs.Name == cb.SelectedItem.ToString()).ID;
+            rl.BookStatus.ID = Core.Context.BookStatus.First(bs => bs.Name == book.status).ID;
+            Update_lists();
+
+
+        }
+        private void Update_lists()
+        {
+            lst_book_dust = lst_book.Where(b => b.Status == "Заброшенно").ToList();
+            lst_book_planed = lst_book.Where(b => b.Status == "В планах").ToList();
+            lst_book_reading = lst_book.Where(b => b.Status == "Читаю").ToList();
+            lst_book_readed = lst_book.Where(b => b.Status == "Прочитано").ToList();
         }
     }
 }
