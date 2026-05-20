@@ -44,6 +44,7 @@ namespace UP01.Pages
             }
             user.user.Roles = Core.Context.Roles.First(r => r.Name == user.new_role_);
             Core.Context.SaveChanges();
+            Update();
         }
 
         private void AuthorApproveBtnClicl(object sender, RoutedEventArgs e)
