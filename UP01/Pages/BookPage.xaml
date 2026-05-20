@@ -71,8 +71,8 @@
             
             <StackPanel Grid.Row="0" Grid.Column="2">
                 <TextBlock Text="{Binding Rating}" HorizontalAlignment="Right"></TextBlock>
-                <Button Margin="0, 15, 15, 15" Content="Читать"></Button>
-                <Button Margin="0, 15, 15, 15" Content="Создать отзыв" ></Button>
+                <Button Margin="0, 15, 15, 15" Content="Читать" Click="ReadBook_Click"></Button>
+                <Button Margin="0, 15, 15, 15" Content="Создать отзыв" Click="CreateReview_Click"></Button>
             </StackPanel>
         </Grid>
         <ListBox x:Name="LB_Reviews" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">

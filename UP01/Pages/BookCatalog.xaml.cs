@@ -34,7 +34,9 @@ namespace UP01.Pages
             LB_catalog.ItemsSource = lst_book;
             
             
-            Genre.ItemsSource = Core.Context.Genre.Select(i => i.Name).ToList();
+            List<string> g = Core.Context.Genre.Select(i => i.Name).ToList();
+            g.Insert(0, "Все жанры");
+            Genre.ItemsSource = g;
         }
 
         private void CB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,7 +66,7 @@ namespace UP01.Pages
         private void FilterList()
         {
             List<BookViewModel> list = lst_book;
-            if (Genre.SelectedItem != null)
+            if (Genre.SelectedIndex != 0 && Genre.SelectedIndex != -1)
             {
                 list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
             }

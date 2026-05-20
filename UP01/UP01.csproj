@@ -118,6 +118,9 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ReadBookPage.xaml.cs">
+      <DependentUpon>ReadBookPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BookInListViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\FreezeViewModel.cs" />
@@ -129,6 +132,9 @@
     </Compile>
     <Compile Include="Windows\NewBookWindow.xaml.cs">
       <DependentUpon>NewBookWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NewReviewWindow.xaml.cs">
+      <DependentUpon>NewReviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ReportWindow.xaml.cs">
       <DependentUpon>ReportWindow.xaml</DependentUpon>
@@ -177,6 +183,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ReadBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RegestrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NewBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewReviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

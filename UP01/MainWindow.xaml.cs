@@ -47,7 +47,7 @@ namespace UP01
 
         private void ListV_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Auth.cur_user == null)
+            if (Auth.is_reg == false)
             {
                 //MessageBox.Show("Сначала необходимо авторизироваться");
                 //return;
@@ -85,7 +85,7 @@ namespace UP01
 
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            if (Auth.cur_user != null)
+            if (Auth.is_reg)
             {
                 if (Auth.cur_user.isFreeze)
                 {

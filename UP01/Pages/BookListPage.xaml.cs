@@ -56,6 +56,7 @@ namespace UP01.Pages
             switch (item.Tag.ToString())
             {
                 case ("Все"):
+                    filter = lst_book;
                     break;
                 case ("Прочитано"):
                     filter = lst_book_readed;

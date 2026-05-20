@@ -62,5 +62,24 @@ namespace UP01.Pages
             Reviews review = button.DataContext as Reviews;
             review.IsFreeze = true;
         }
+
+        private void CreateReview_Click(object sender, RoutedEventArgs e)
+        {
+            BookViewModel bookView = this.DataContext as BookViewModel;
+
+            NewReviewWindow newReview = new NewReviewWindow(bookView.book);
+            newReview.ShowDialog();
+            if (newReview.is_created)
+            {
+                MessageBox.Show("Отзыв успешно создан");
+                LB_Reviews.ItemsSource = 
+                LB_Reviews.ItemsSource = bookView.book.Reviews.ToList();
+            }
+        }
+
+        private void ReadBook_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ReadBookPage(this.DataContext as BookViewModel));
+        }
     }
 }
