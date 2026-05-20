@@ -98,7 +98,16 @@
                                 </Button.ToolTip>
 
                             </Button>
+                            <Button Visibility="{Binding IsUserAdmin, RelativeSource={RelativeSource AncestorType=Page}}" x:Name="Freezer" Click="Freezer_Click" BorderThickness="0" Background="Transparent" Margin="2" Padding="0"  Tag="{Binding}" Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
+                                <Image Width="30" Height="30" Source="/Resources/Icons/menu.jpg"></Image>
+                                
+                                <Button.ToolTip>
+                                    <ToolTip Content="Заморозить" Placement="Left" Style="{StaticResource tt_Style}" Height="30">
 
+                                    </ToolTip>
+                                </Button.ToolTip>
+
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

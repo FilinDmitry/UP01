@@ -21,8 +21,8 @@ namespace UP01.Models
             this.ApplicationsToUnfreeze = new HashSet<ApplicationsToUnfreeze>();
             this.Books = new HashSet<Books>();
             this.ReadingList = new HashSet<ReadingList>();
-            this.Reports = new HashSet<Reports>();
             this.Reviews = new HashSet<Reviews>();
+            this.Reports = new HashSet<Reports>();
             this.Reports1 = new HashSet<Reports>();
         }
     
@@ -45,10 +45,10 @@ namespace UP01.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReadingList> ReadingList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reports> Reports { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
         public virtual Roles Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reports> Reports1 { get; set; }
     }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище LibraryUP11Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище LibraryUP11Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ApplicationsToBecomeAuthor">
           <Key>
             <PropertyRef Name="ID" />
@@ -44,6 +44,7 @@
           <Property Name="AuthorID" Type="int" Nullable="false" />
           <Property Name="isFreeze" Type="bit" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ReasonToFreeze" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BookStatus">
           <Key>
@@ -85,6 +86,14 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="isClose" Type="bit" Nullable="false" />
           <Property Name="Approved" Type="bit" />
+          <Property Name="ReportType" Type="int" />
+        </EntityType>
+        <EntityType Name="ReportType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <EntityType Name="ReviewReports">
           <Key>
@@ -103,6 +112,7 @@
           <Property Name="Rating" Type="int" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IsFreeze" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -274,6 +284,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reports_ReportType">
+          <End Role="ReportType" Type="Self.ReportType" Multiplicity="0..1" />
+          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="ReportType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reports_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
@@ -380,6 +402,7 @@
           <EntitySet Name="GenreBook" EntityType="Self.GenreBook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReadingList" EntityType="Self.ReadingList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportType" EntityType="Self.ReportType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReviewReports" EntityType="Self.ReviewReports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -430,6 +453,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ReadingList" EntitySet="ReadingList" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reports_ReportType" Association="Self.FK_Reports_ReportType">
+            <End Role="ReportType" EntitySet="ReportType" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reports_Users" Association="Self.FK_Reports_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Reports" EntitySet="Reports" />
@@ -463,8 +490,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryUP11Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -503,12 +529,13 @@
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
           <Property Name="isFreeze" Type="Boolean" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReasonToFreeze" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ApplicationsToUnfreeze" Relationship="Self.FK_ApplicationsToUnfreeze_Books" FromRole="Books" ToRole="ApplicationsToUnfreeze" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Books_Users" FromRole="Books" ToRole="Users" />
           <NavigationProperty Name="ReadingList" Relationship="Self.FK_ReadingList_Books" FromRole="Books" ToRole="ReadingList" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Books" FromRole="Books" ToRole="Reviews" />
-          <NavigationProperty Name="Reports" Relationship="Self.BookReports" FromRole="Books" ToRole="Reports" />
           <NavigationProperty Name="Genre" Relationship="Self.GenreBook" FromRole="Books" ToRole="Genre" />
+          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.BookReports" FromRole="Books" ToRole="Reports" />
         </EntityType>
         <EntityType Name="BookStatus">
           <Key>
@@ -538,20 +565,6 @@
           <NavigationProperty Name="BookStatus" Relationship="Self.FK_ReadingList_BookStatus" FromRole="ReadingList" ToRole="BookStatus" />
           <NavigationProperty Name="Users" Relationship="Self.FK_ReadingList_Users" FromRole="ReadingList" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Reports">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AuthorID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="isClose" Type="Boolean" Nullable="false" />
-          <Property Name="Approved" Type="Boolean" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Reports_Users" FromRole="Reports" ToRole="Users" />
-          <NavigationProperty Name="Books" Relationship="Self.BookReports" FromRole="Reports" ToRole="Books" />
-          <NavigationProperty Name="Reviews" Relationship="Self.ReviewReports" FromRole="Reports" ToRole="Reviews" />
-          <NavigationProperty Name="Users1" Relationship="Self.UserReports" FromRole="Reports" ToRole="Users" />
-        </EntityType>
         <EntityType Name="Reviews">
           <Key>
             <PropertyRef Name="ID" />
@@ -562,9 +575,10 @@
           <Property Name="Rating" Type="Int32" Nullable="false" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsFreeze" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Books" Relationship="Self.FK_Reviews_Books" FromRole="Reviews" ToRole="Books" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Reviews_Users" FromRole="Reviews" ToRole="Users" />
-          <NavigationProperty Name="Reports" Relationship="Self.ReviewReports" FromRole="Reviews" ToRole="Reports" />
+          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.ReviewReports" FromRole="Reviews" ToRole="Reports" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -601,10 +615,10 @@
           <NavigationProperty Name="ApplicationsToUnfreeze" Relationship="Self.FK_ApplicationsToUnfreeze_Users" FromRole="Users" ToRole="ApplicationsToUnfreeze" />
           <NavigationProperty Name="Books" Relationship="Self.FK_Books_Users" FromRole="Users" ToRole="Books" />
           <NavigationProperty Name="ReadingList" Relationship="Self.FK_ReadingList_Users" FromRole="Users" ToRole="ReadingList" />
-          <NavigationProperty Name="Reports" Relationship="Self.FK_Reports_Users" FromRole="Users" ToRole="Reports" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
-          <NavigationProperty Name="Reports1" Relationship="Self.UserReports" FromRole="Users" ToRole="Reports" />
+          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.FK_Reports_Users" FromRole="Users" ToRole="Reports" />
+          <NavigationProperty Name="Reports1" Relationship="LibraryUP11Model.UserReports" FromRole="Users" ToRole="Reports" />
         </EntityType>
         <Association Name="FK_ApplicationsToBecomeAuthor_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -702,18 +716,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reports_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Reports">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Reviews_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
@@ -738,30 +740,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="BookReports">
-          <End Role="Books" Type="Self.Books" Multiplicity="0..1" />
-          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
-        </Association>
         <Association Name="GenreBook">
           <End Role="Books" Type="Self.Books" Multiplicity="*" />
           <End Role="Genre" Type="Self.Genre" Multiplicity="*" />
         </Association>
-        <Association Name="ReviewReports">
-          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
-          <End Role="Reviews" Type="Self.Reviews" Multiplicity="0..1" />
-        </Association>
-        <Association Name="UserReports">
-          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-        </Association>
-        <EntityContainer Name="LibraryUP01Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="LibraryUP11Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ApplicationsToBecomeAuthor" EntityType="Self.ApplicationsToBecomeAuthor" />
           <EntitySet Name="ApplicationsToUnfreeze" EntityType="Self.ApplicationsToUnfreeze" />
           <EntitySet Name="Books" EntityType="Self.Books" />
           <EntitySet Name="BookStatus" EntityType="Self.BookStatus" />
           <EntitySet Name="Genre" EntityType="Self.Genre" />
           <EntitySet Name="ReadingList" EntityType="Self.ReadingList" />
-          <EntitySet Name="Reports" EntityType="Self.Reports" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -798,10 +787,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ReadingList" EntitySet="ReadingList" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reports_Users" Association="Self.FK_Reports_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Reports" EntitySet="Reports" />
-          </AssociationSet>
           <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Reviews" EntitySet="Reviews" />
@@ -810,29 +795,99 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="BookReports" Association="Self.BookReports">
-            <End Role="Books" EntitySet="Books" />
-            <End Role="Reports" EntitySet="Reports" />
-          </AssociationSet>
           <AssociationSet Name="GenreBook" Association="Self.GenreBook">
             <End Role="Books" EntitySet="Books" />
             <End Role="Genre" EntitySet="Genre" />
           </AssociationSet>
-          <AssociationSet Name="ReviewReports" Association="Self.ReviewReports">
+          <EntitySet Name="Reports" EntityType="LibraryUP11Model.Reports" />
+          <EntitySet Name="ReportType" EntityType="LibraryUP11Model.ReportType" />
+          <AssociationSet Name="FK_Reports_ReportType" Association="LibraryUP11Model.FK_Reports_ReportType">
+            <End Role="ReportType" EntitySet="ReportType" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_Users" Association="LibraryUP11Model.FK_Reports_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="BookReports" Association="LibraryUP11Model.BookReports">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="ReviewReports" Association="LibraryUP11Model.ReviewReports">
             <End Role="Reports" EntitySet="Reports" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
-          <AssociationSet Name="UserReports" Association="Self.UserReports">
+          <AssociationSet Name="UserReports" Association="LibraryUP11Model.UserReports">
             <End Role="Reports" EntitySet="Reports" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          </EntityContainer>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isClose" Type="Boolean" Nullable="false" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="ReportType" Type="Int32" />
+          <NavigationProperty Name="ReportType1" Relationship="LibraryUP11Model.FK_Reports_ReportType" FromRole="Reports" ToRole="ReportType" />
+          <NavigationProperty Name="Users" Relationship="LibraryUP11Model.FK_Reports_Users" FromRole="Reports" ToRole="Users" />
+          <NavigationProperty Name="Books" Relationship="LibraryUP11Model.BookReports" FromRole="Reports" ToRole="Books" />
+          <NavigationProperty Name="Reviews" Relationship="LibraryUP11Model.ReviewReports" FromRole="Reports" ToRole="Reviews" />
+          <NavigationProperty Name="Users1" Relationship="LibraryUP11Model.UserReports" FromRole="Reports" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ReportType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reports" Relationship="LibraryUP11Model.FK_Reports_ReportType" FromRole="ReportType" ToRole="Reports" />
+        </EntityType>
+        <Association Name="FK_Reports_ReportType">
+          <End Type="LibraryUP11Model.ReportType" Role="ReportType" Multiplicity="0..1" />
+          <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="ReportType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_Users">
+          <End Type="LibraryUP11Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookReports">
+          <End Type="LibraryUP11Model.Books" Role="Books" Multiplicity="0..1" />
+          <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
+        </Association>
+        <Association Name="ReviewReports">
+          <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
+          <End Type="LibraryUP11Model.Reviews" Role="Reviews" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UserReports">
+          <End Type="LibraryUP11Model.Reports" Role="Reports" Multiplicity="*" />
+          <End Type="LibraryUP11Model.Users" Role="Users" Multiplicity="0..1" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище LibraryUP11ModelContainer" CdmEntityContainer="LibraryUP01Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LibraryUP11ModelContainer" CdmEntityContainer="LibraryUP11Entities">
           <EntitySetMapping Name="ApplicationsToBecomeAuthor">
             <EntityTypeMapping TypeName="LibraryUP11Model.ApplicationsToBecomeAuthor">
               <MappingFragment StoreEntitySet="ApplicationsToBecomeAuthor">
@@ -866,6 +921,7 @@
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="isFreeze" ColumnName="isFreeze" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ReasonToFreeze" ColumnName="ReasonToFreeze" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -894,17 +950,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Reports">
-            <EntityTypeMapping TypeName="LibraryUP11Model.Reports">
-              <MappingFragment StoreEntitySet="Reports">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="isClose" ColumnName="isClose" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="LibraryUP11Model.Reviews">
               <MappingFragment StoreEntitySet="Reviews">
@@ -914,6 +959,7 @@
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsFreeze" ColumnName="IsFreeze" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -951,14 +997,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="BookReports" TypeName="LibraryUP11Model.BookReports" StoreEntitySet="BookReports">
-            <EndProperty Name="Books">
-              <ScalarProperty Name="ID" ColumnName="BookID" />
-            </EndProperty>
-            <EndProperty Name="Reports">
-              <ScalarProperty Name="ID" ColumnName="ID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="GenreBook" TypeName="LibraryUP11Model.GenreBook" StoreEntitySet="GenreBook">
             <EndProperty Name="Books">
               <ScalarProperty Name="ID" ColumnName="BookID" />
@@ -967,23 +1005,54 @@
               <ScalarProperty Name="ID" ColumnName="GenreID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="ReviewReports" TypeName="LibraryUP11Model.ReviewReports" StoreEntitySet="ReviewReports">
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="LibraryUP11Model.Reports">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="isClose" ColumnName="isClose" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportType">
+            <EntityTypeMapping TypeName="LibraryUP11Model.ReportType">
+              <MappingFragment StoreEntitySet="ReportType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BookReports" TypeName="LibraryUP11Model.BookReports" StoreEntitySet="BookReports">
             <EndProperty Name="Reports">
               <ScalarProperty Name="ID" ColumnName="ID" />
             </EndProperty>
+            <EndProperty Name="Books">
+              <ScalarProperty Name="ID" ColumnName="BookID" />
+            </EndProperty>
+            <Condition ColumnName="BookID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ReviewReports" TypeName="LibraryUP11Model.ReviewReports" StoreEntitySet="ReviewReports">
             <EndProperty Name="Reviews">
               <ScalarProperty Name="ID" ColumnName="ReviewID" />
             </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="UserReports" TypeName="LibraryUP11Model.UserReports" StoreEntitySet="UserReports">
             <EndProperty Name="Reports">
               <ScalarProperty Name="ID" ColumnName="ID" />
             </EndProperty>
+            <Condition ColumnName="ReviewID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserReports" TypeName="LibraryUP11Model.UserReports" StoreEntitySet="UserReports">
             <EndProperty Name="Users">
               <ScalarProperty Name="ID" ColumnName="UserID" />
             </EndProperty>
+            <EndProperty Name="Reports">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <Condition ColumnName="UserID" IsNull="false" />
           </AssociationSetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -998,7 +1067,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>

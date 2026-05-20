@@ -54,7 +54,7 @@
             
             <!--Клиенты-->
             <TabItem Header="Пользователи" Tag="Пользователи">
-                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox x:Name="LB_Users" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid MinHeight="100">
@@ -71,13 +71,13 @@
                                         <RowDefinition Height="*"></RowDefinition>
                                         <RowDefinition Height="*"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Text="Name" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="26"></TextBlock>
+                                    <TextBlock Text="{Binding Login}" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="26"></TextBlock>
                                     <TextBlock Text="Пароль" Grid.Row="1" HorizontalAlignment="Right"></TextBlock>
-                                        <TextBox Grid.Column="1" Grid.Row="1" Text="Password"></TextBox>
+                                    <TextBox x:Name="TB_P" TextChanged="TB_TextChanged" Grid.Column="1" Grid.Row="1" Text="{Binding Password}"></TextBox>
                                     <TextBlock Text="Имя" Grid.Row="2" HorizontalAlignment="Right"></TextBlock>
-                                    <TextBox Grid.Column="1" Grid.Row="2" Text="Name"></TextBox>
+                                    <TextBox x:Name="TB_N" TextChanged="TB_TextChanged" Grid.Column="1" Grid.Row="2" Text="{Binding Name}"></TextBox>
                                     <TextBlock Text="Роль" Grid.Row="3" HorizontalAlignment="Right"></TextBlock>
-                                    <ComboBox Style="{StaticResource Combo}" HorizontalAlignment="Left" Margin="15" Grid.Column="1" Grid.Row="3"></ComboBox>
+                                    <ComboBox SelectionChanged="Change_user_role" Style="{StaticResource Combo}" ItemsSource="{Binding roles}" SelectedItem="{Binding role}" HorizontalAlignment="Left" Margin="15" Grid.Column="1" Grid.Row="3"></ComboBox>
                                 </Grid>
                                  
                             </Grid>
@@ -89,19 +89,19 @@
             
             <!--Недопонятые гении-->
             <TabItem Header="Заявки на авторство" Tag="Заявки на авторство">
-                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox x:Name="LB_Author" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                                 <StackPanel>
-                                    <TextBlock Text="Name"></TextBlock>
-                                    
-                                        <TextBlock Text="Comment" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding Users.Login}"></TextBlock>
+
+                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
 
                                     <Grid>
                                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                            <Button Content="Принять" Height="45" Margin="10"></Button>
-                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                            <Button Content="Принять" Click="AuthorApproveBtnClicl" Height="45" Margin="10"></Button>
+                                            <Button Content="Отклонить" Click="AuthorRegectBtnClicl" Height="45" Margin="10"></Button>
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
@@ -114,7 +114,7 @@
             
             <!--Не брать трубку-->
             <TabItem Header="Заявки на разморозку" Tag="Заявки на разморозку">
-                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox x:Name="LB_Unfreeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
@@ -132,7 +132,7 @@
                         <DataTemplate>
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                             <StackPanel>
-                                <TextBlock Text="Name"></TextBlock>
+                                    <TextBlock Text="Login"></TextBlock>
                                 <StackPanel>
                                     <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                                         <TextBlock Text="Reason for freeze" TextWrapping="Wrap"></TextBlock>
@@ -155,14 +155,14 @@
             </TabItem>
             
             <!--Пермаментный бан на сервере-->
-            <TabItem Header="Список заморозки" Tag="Список заморозки">
-                <ListBox BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <TabItem  Header="Список заморозки" Tag="Список заморозки">
+                <ListBox x:Name="LB_freeze" BorderThickness="0" HorizontalContentAlignment="Stretch" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" Background="{StaticResource SecondColorBrush}" CornerRadius="5" HorizontalAlignment="Left">
-                                        <TextBlock  Text="Group" FontWeight="Bold" FontSize="24"/>
+                                        <TextBlock  Text="{Binding Name}" FontWeight="Bold" FontSize="24"/>
                                     </Border>
 
 
@@ -175,15 +175,16 @@
                             <Border BorderThickness="1.5" BorderBrush="{StaticResource BorderColorBrush}" CornerRadius="4">
                                 <StackPanel>
 
-                                    <TextBlock Text="Заморозка (Type): с именем" TextWrapping="Wrap"></TextBlock>
-                                    <TextBlock Text="Причина заморозки" TextWrapping="Wrap"></TextBlock>
+                                    <TextBlock Text="{Binding name}" TextWrapping="Wrap">
+                                        
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding reason}" TextWrapping="Wrap"></TextBlock>
                                     <Grid>
                                         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                            <Button Content="Принять" Height="45" Margin="10"></Button>
-                                            <Button Content="Отклонить" Height="45" Margin="10"></Button>
+                                            <Button Content="Разморозить" Click="UnfreezeBtn_Click" Height="45" Margin="10"></Button>
 
                                         </StackPanel>
-                                        <Button Content="Подробнее" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
+                                        <Button Content="Подробнее" Click="AboutBtn_Click" Height="45" HorizontalAlignment="Right" Margin="10"></Button>
                                     </Grid>
                                 </StackPanel>
                             </Border>

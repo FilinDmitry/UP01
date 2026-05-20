@@ -4,16 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ec82af0ed7764f9d86b6598b9d7c6973" Name="Diagram1" ZoomLevel="80">
+      <Diagram DiagramId="bc3d515413d84f00b7094560c5110831" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="LibraryUP11Model.ApplicationsToBecomeAuthor" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.ApplicationsToUnfreeze" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.ApplicationsToUnfreeze" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryUP11Model.Books" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.BookStatus" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.Genre" Width="1.5" PointX="7.5" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.ReadingList" Width="1.5" PointX="10.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.Reports" Width="1.5" PointX="10.5" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.Reviews" Width="1.5" PointX="12.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryUP11Model.Roles" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.BookStatus" Width="1.5" PointX="8.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.Genre" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.ReadingList" Width="1.5" PointX="10.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.Reviews" Width="1.5" PointX="12.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryUP11Model.Roles" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryUP11Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LibraryUP11Model.Users" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <AssociationConnector Association="LibraryUP11Model.FK_ApplicationsToBecomeAuthor_Users" ManuallyRouted="false" />
@@ -24,14 +23,17 @@
         <AssociationConnector Association="LibraryUP11Model.FK_Reviews_Books" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.FK_ReadingList_BookStatus" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.FK_ReadingList_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryUP11Model.FK_Reports_Users" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.FK_Reviews_Users" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.FK_Users_Roles" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryUP11Model.BookReports" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryUP11Model.GenreBook" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryUP11Model.ReviewReports" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryUP11Model.UserReports" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="LibraryUP11Model.Reports" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="LibraryUP11Model.ReportType" Width="1.5" PointX="0.75" PointY="17.875" />
+        <AssociationConnector Association="LibraryUP11Model.FK_Reports_ReportType" />
+        <AssociationConnector Association="LibraryUP11Model.FK_Reports_Users" />
+        <AssociationConnector Association="LibraryUP11Model.BookReports" />
+        <AssociationConnector Association="LibraryUP11Model.ReviewReports" />
+        <AssociationConnector Association="LibraryUP11Model.UserReports" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -13,10 +13,10 @@ namespace UP01.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LibraryUP01Entities : DbContext
+    public partial class LibraryUP11Entities : DbContext
     {
-        public LibraryUP01Entities()
-            : base("name=LibraryUP01Entities")
+        public LibraryUP11Entities()
+            : base("name=LibraryUP11Entities")
         {
         }
     
@@ -31,10 +31,11 @@ namespace UP01.Models
         public virtual DbSet<BookStatus> BookStatus { get; set; }
         public virtual DbSet<Genre> Genre { get; set; }
         public virtual DbSet<ReadingList> ReadingList { get; set; }
-        public virtual DbSet<Reports> Reports { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
+        public virtual DbSet<ReportType> ReportType { get; set; }
     }
 }

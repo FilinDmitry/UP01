@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UP01.Models
+namespace UP01.ViewModels
 {
-    static internal class Core
+    internal class UnfreezeApplicationViewModel
     {
-        public static LibraryUP11Entities Context = new LibraryUP11Entities();
     }
 }

@@ -23,10 +23,13 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookPage : Page
     {
+        bool IsUserAdmin;
         public BookPage(BookViewModel book)
         {
+            IsUserAdmin = true;
             this.DataContext = book;
             InitializeComponent();
+            
             LB_Reviews.ItemsSource = book.book.Reviews.ToList();
             
         }
@@ -52,8 +55,12 @@ namespace UP01.Pages
             ReportWindow reportWindow = new ReportWindow(ReportType.BookReport, review.ID, Auth.cur_user.ID);
             reportWindow.Show();
         }
-        
 
-
+        private void Freezer_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Reviews review = button.DataContext as Reviews;
+            review.IsFreeze = true;
+        }
     }
 }

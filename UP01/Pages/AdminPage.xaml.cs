@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UP01.Models;
+using UP01.ViewModels;
 
 namespace UP01.Pages
 {
@@ -23,32 +25,124 @@ namespace UP01.Pages
     {
         public AdminPage()
         {
-            /*
-                List<Seans> seans_lst_d = Core.Context.Seans.Where(i => i.Film_ID == movie.ID).ToList();
+            
+           
 
 
 
-            var seans_lst = seans_lst_d.Select(i => new Seans_Info
+            
+            
+
+            InitializeComponent();
+            
+            InitializeComponent();
+            Update();
+            
+        }
+
+        private void Change_user_role(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            UserViewModel user = cb.DataContext as UserViewModel;
+            if (user == null)
             {
-                ID = i.ID,
-                Date = i.StartTime.Date,
-                Time = i.StartTime.TimeOfDay,
-                Kinozal_ID = i.Kinozal_ID,
-                Lenght = i.Lenght
+                return;
+
             }
-            ).ToList();
+            user.user.Roles = Core.Context.Roles.First(r => r.Name == user.new_role_);
+            Core.Context.SaveChanges();
+        }
 
+        private void AuthorApproveBtnClicl(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ApplicationsToBecomeAuthor becomeAuthor = btn.DataContext as ApplicationsToBecomeAuthor;
+            becomeAuthor.isClose = true;
+            becomeAuthor.Approved = true;
+            becomeAuthor.Users.RoleID = 2;
+            Core.Context.SaveChanges();
+            Update();
+        }
 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(seans_lst);
-            PropertyGroupDescription groupDescription
-                    = new PropertyGroupDescription("Date");
+        private void AuthorRegectBtnClicl(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            ApplicationsToBecomeAuthor becomeAuthor = btn.DataContext as ApplicationsToBecomeAuthor;
+            becomeAuthor.isClose = false;
+            becomeAuthor.Approved = false;
+            Core.Context.SaveChanges();
+            Update();
+        }
+
+        
+
+        private void Update()
+        {
+            var freeze_list = Core.Context.Users.Where(i => i.isFreeze).Select(u => new FreezeViewModel()
+            {
+                freezeType = freezeType.User,
+                user = u
+            }).ToList().Union(Core.Context.Books.Where(i => i.isFreeze).Select(u => new FreezeViewModel()
+            {
+                freezeType = freezeType.Book,
+                user = u.Users,
+                book = u
+
+            }).ToList()).ToList();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(freeze_list);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("group");
             view.GroupDescriptions.Add(groupDescription);
-            view.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("group", ListSortDirection.Ascending));
+            LB_freeze.ItemsSource = null;
+            LB_freeze.ItemsSource = view;
 
-            DataContext = movie;
-            InitializeComponent();
-            */
-            InitializeComponent();
+
+
+            LB_Author.ItemsSource = null;
+            LB_Users.ItemsSource = null;
+            LB_Unfreeze.ItemsSource = null;
+            LB_Users.ItemsSource = Core.Context.Users.Where(u => u.ID != Auth.cur_user.ID).Select(u =>
+                new UserViewModel()
+                { user = u }
+                ).ToList();
+            LB_Author.ItemsSource = Core.Context.ApplicationsToBecomeAuthor.Where(i => !i.isClose).ToList();
+            LB_Unfreeze.ItemsSource = Core.Context.ApplicationsToUnfreeze.Where(i => !i.isClose).ToList();
+        }
+
+        private void AboutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            FreezeViewModel freeze = btn.DataContext as FreezeViewModel;
+            if (freeze.GetGroup() == "Книги")
+            {
+                NavigationService.Navigate(new BookPage(new BookViewModel() { book = freeze.book }));
+            }
+            else
+            {
+                MessageBox.Show("Данная функция в разработке");
+            }
+        }
+
+        private void UnfreezeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            FreezeViewModel freeze = btn.DataContext as FreezeViewModel;
+        }
+
+        private void TB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            UserViewModel user = txt.DataContext as UserViewModel;
+            switch (txt.Name)
+            {
+                case "TB_P":
+                    user.user.Password = txt.Text;
+                    break;
+                case "TB_N":
+                    user.user.Name = txt.Text;
+                    break;
+            }
+            Core.Context.SaveChanges();
         }
     }
 }
