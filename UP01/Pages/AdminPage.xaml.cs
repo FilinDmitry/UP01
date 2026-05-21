@@ -117,13 +117,11 @@ namespace UP01.Pages
 
             LB_Author.ItemsSource = null;
             LB_Users.ItemsSource = null;
-            LB_Unfreeze.ItemsSource = null;
             LB_Users.ItemsSource = Core.Context.Users.Where(u => u.ID != Auth.cur_user.ID).Select(u =>
                 new UserViewModel()
                 { user = u }
                 ).ToList();
             LB_Author.ItemsSource = Core.Context.ApplicationsToBecomeAuthor.Where(i => !i.isClose).ToList();
-            LB_Unfreeze.ItemsSource = Core.Context.ApplicationsToUnfreeze.Where(i => !i.isClose).ToList();
         }
 
         private void AboutBtn_Click(object sender, RoutedEventArgs e)

@@ -68,14 +68,17 @@ namespace UP01.ViewModels
             switch (type)
             {
                 case ApplicationType.UnfreezeApplication:
-                    application_.Users.isFreeze = false;
+                    application_.Users.isFreeze = true;
                     break;
                 case ApplicationType.BookUnfreeze:
-                    application_.Books.isFreeze = false;
+                    application_.Books.isFreeze = true;
                     break;
 
 
             }
+            application_.isClose = true;
+            application.Approved = true;
+            Core.Context.SaveChanges();
         }
     }
 }
