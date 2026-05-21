@@ -30,7 +30,7 @@ namespace UP01.Pages
             this.DataContext = book;
             InitializeComponent();
             
-            LB_Reviews.ItemsSource = book.book.Reviews.ToList();
+            LB_Reviews.ItemsSource = book.book.Reviews.Where(i => !i.IsFreeze).ToList();
             
         }
 

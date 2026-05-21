@@ -24,7 +24,7 @@ namespace UP01.Pages
         List<BookViewModel> lst_book;
         public BookCatalog()
         {
-            lst_book = Core.Context.Books.Select(
+            lst_book = Core.Context.Books.Where(i => !i.isFreeze).Select(
                 b => new BookViewModel()
                 {
                     book = b

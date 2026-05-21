@@ -34,8 +34,10 @@ namespace UP01.Pages
         {
             
             InitializeComponent();
-            Genre.ItemsSource = Core.Context.Genre.Select(i => i.Name).ToList();
-            lst_book = Core.Context.Books.Select(
+            List<string> genres = Core.Context.Genre.Select(i => i.Name).ToList();
+            genres.Insert(0, "Все жанры");
+            Genre.ItemsSource = genres;
+            lst_book = Core.Context.Books.Where(i => !i.isFreeze).Select(
                 b => new BookInListViewModel()
                 {
                     book = b
@@ -75,7 +77,7 @@ namespace UP01.Pages
                 
             }
             Search.Text = string.Empty;
-            Genre.SelectedIndex = -1;
+            Genre.SelectedIndex = 0;
             Sort.SelectedIndex = 0;
             LB_ReadingList.ItemsSource = filter;
         }
@@ -190,7 +192,10 @@ namespace UP01.Pages
             
             if (Genre.SelectedItem != null)
             {
-                list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
+                if (Genre.SelectedIndex != 0)
+                    {
+                    list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
+                }
             }
             switch (Sort.SelectedIndex)
             {
@@ -239,14 +244,14 @@ namespace UP01.Pages
                 return;
             }
 
-            if (book.Status == "")
+            if (book.Status == string.Empty)
             { 
                 ReadingList readingList = new ReadingList()
                 {
                     BookID = book.book.ID,
                     UserID = Auth.cur_user.ID
                 };
-                switch (mi.Header)
+                switch (mi.Header.ToString())
                 {
 
                     case "Прочитано":
@@ -265,7 +270,6 @@ namespace UP01.Pages
                 Core.Context.ReadingList.Add(readingList);
                 Core.Context.SaveChanges();
                 MessageBox.Show("Успеешно перемещено");
-                Update_lists();
                 return;
             }
             else

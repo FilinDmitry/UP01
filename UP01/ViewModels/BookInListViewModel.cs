@@ -27,6 +27,8 @@ namespace UP01.ViewModels
             {
                 return string.Empty;
             }
+            if (reading.BookStatus == null)
+            {  return string.Empty; }
             return reading.BookStatus.Name;
         }
         private ReadingList GetReadingList()
