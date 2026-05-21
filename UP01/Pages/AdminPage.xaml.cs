@@ -62,7 +62,7 @@ namespace UP01.Pages
         {
             Button btn = sender as Button;
             ApplicationsToBecomeAuthor becomeAuthor = btn.DataContext as ApplicationsToBecomeAuthor;
-            becomeAuthor.isClose = false;
+            becomeAuthor.isClose = true;
             becomeAuthor.Approved = false;
             Core.Context.SaveChanges();
             Update();
@@ -72,7 +72,7 @@ namespace UP01.Pages
 
         private void Update()
         {
-            List<UnfreezeApplicationViewModel> ask_list = Core.Context.ApplicationsToUnfreeze.Select(i => new UnfreezeApplicationViewModel()
+            List<UnfreezeApplicationViewModel> ask_list = Core.Context.ApplicationsToUnfreeze.Where(i => !i.isClose).Select(i => new UnfreezeApplicationViewModel()
             {
                 application = i
 
@@ -84,7 +84,7 @@ namespace UP01.Pages
             LB_Unfreeze.ItemsSource = null;
             LB_Unfreeze.ItemsSource = view_ask;
 
-            List<ReportsViewModel> reports_list = Core.Context.Reports.Select(i => new ReportsViewModel()
+            List<ReportsViewModel> reports_list = Core.Context.Reports.Where(i => !i.isClose).Select(i => new ReportsViewModel()
             {
                 report = i,
             }).ToList();
@@ -146,6 +146,7 @@ namespace UP01.Pages
             FreezeViewModel freeze = btn.DataContext as FreezeViewModel;
             freeze.UnFreeze();
             Update();
+            MessageBox.Show("Разморожен");
         }
 
         private void TB_TextChanged(object sender, TextChangedEventArgs e)
@@ -162,7 +163,6 @@ namespace UP01.Pages
                     break;
             }
             Core.Context.SaveChanges();
-            Update();
         }
 
         private void RerortApprove_Click(object sender, RoutedEventArgs e)
@@ -171,6 +171,7 @@ namespace UP01.Pages
             ReportsViewModel rvm = btn.DataContext as ReportsViewModel;
             rvm.Freeze();
             Update();
+            MessageBox.Show("Заморожено");
         }
 
         private void ReportRegret_Click(object sender, RoutedEventArgs e)
@@ -181,6 +182,7 @@ namespace UP01.Pages
             rvm.report.Approved = false;
             Core.Context.SaveChanges();
             Update();
+            MessageBox.Show("Жалоба отколонена");
         }
 
         private void AboutReport_Click(object sender, RoutedEventArgs e)
