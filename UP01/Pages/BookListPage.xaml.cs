@@ -74,6 +74,9 @@ namespace UP01.Pages
                     break;
                 
             }
+            Search.Text = string.Empty;
+            Genre.SelectedIndex = -1;
+            Sort.SelectedIndex = 0;
             LB_ReadingList.ItemsSource = filter;
         }
         void Page_Loaded(object sender, RoutedEventArgs e)
@@ -156,6 +159,30 @@ namespace UP01.Pages
             lst_book_planed = lst_book.Where(b => b.Status == "В планах").ToList();
             lst_book_reading = lst_book.Where(b => b.Status == "Читаю").ToList();
             lst_book_readed = lst_book.Where(b => b.Status == "Прочитано").ToList();
+            TabItem item = ListTabControl.SelectedItem as TabItem;
+            List<BookInListViewModel> filter = new List<BookInListViewModel>();
+            if (item == null)
+            { return; }
+            switch (item.Tag.ToString())
+            {
+                case ("Все"):
+                    filter = lst_book;
+                    break;
+                case ("Прочитано"):
+                    filter = lst_book_readed;
+                    break;
+                case ("Читаю"):
+                    filter = lst_book_reading;
+                    break;
+                case ("В планах"):
+                    filter = lst_book_planed;
+                    break;
+                case ("Заброшено"):
+                    filter = lst_book_dust;
+                    break;
+
+            }
+            LB_ReadingList.ItemsSource = FilterList(filter);
         }
         private List<BookInListViewModel> FilterList(List<BookInListViewModel> filter)
         {
@@ -165,7 +192,6 @@ namespace UP01.Pages
             {
                 list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
             }
-
             switch (Sort.SelectedIndex)
             {
                 case (0):
@@ -175,18 +201,20 @@ namespace UP01.Pages
                     list = list.OrderBy(b => b.Name).ToList();
                     break;
             }
+
             list = list.Where(i => i.Name.Contains(Search.Text) || i.Author.Contains(Search.Text)).ToList();
+            
             return list;
         }
 
         private void Genre_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            Update_lists();
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            Update_lists();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
