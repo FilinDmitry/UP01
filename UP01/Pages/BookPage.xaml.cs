@@ -23,10 +23,21 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookPage : Page
     {
-        bool IsUserAdmin;
+        bool IsUserAdmin = false;
+
+        public Visibility visibility
+        {
+            get {
+                if (IsUserAdmin)
+                    return Visibility.Visible;
+                return Visibility.Collapsed;
+            }
+            set
+            { }
+        }
         public BookPage(BookViewModel book)
         {
-            IsUserAdmin = true;
+            IsUserAdmin = Auth.cur_user.RoleID == 3;
             this.DataContext = book;
             InitializeComponent();
             
@@ -58,9 +69,13 @@ namespace UP01.Pages
 
         private void Freezer_Click(object sender, RoutedEventArgs e)
         {
+            BookViewModel bookView = this.DataContext as BookViewModel;
             Button button = sender as Button;
             Reviews review = button.DataContext as Reviews;
             review.IsFreeze = true;
+
+            LB_Reviews.ItemsSource = null;
+            LB_Reviews.ItemsSource = bookView.book.Reviews.Where(i => !i.IsFreeze).ToList();
         }
 
         private void CreateReview_Click(object sender, RoutedEventArgs e)

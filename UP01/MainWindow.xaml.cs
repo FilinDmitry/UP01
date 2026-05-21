@@ -87,6 +87,7 @@ namespace UP01
         {
             if (Auth.is_reg)
             {
+               
                 if (Auth.cur_user.isFreeze)
                 {
                     El4.Visibility = Visibility.Collapsed;

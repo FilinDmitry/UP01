@@ -16,8 +16,8 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Name}" FontSize="24"></TextBlock>
-        <Button Grid.Row="0" HorizontalAlignment="Right" Width="50" Height="50">
-            <Image Width="50" Height="50" Source="/Resources/Icons/menu.jpg" ></Image>
+        <Button BorderThickness="0" Margin="0, 5, 10, 5" Background="Transparent" Grid.Row="0" HorizontalAlignment="Right" Width="50" Height="50">
+            <Image Width="50" Height="50" Source="/Resources/Icons/menu.png" ></Image>
             <Button.Resources>
                 <ContextMenu x:Key="cm">
 
@@ -30,7 +30,7 @@
                 </ContextMenu>
             </Button.Resources>
             <Button.Style>
-                
+
                 <Style TargetType="{x:Type Button}">
                     <Style.Triggers>
                         <EventTrigger RoutedEvent="Click">
@@ -89,7 +89,7 @@
                         <StackPanel Margin="0, 5, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal">
                             <TextBlock  Text="{Binding Path=Rating, StringFormat=Оценка: {0}/10}"  Margin="0, 0, 10, 0"/>
                             <Button BorderThickness="0" Background="Transparent" Margin="2" Padding="0"  Click="Review_Report_Click" Tag="{Binding}" Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
-                                <Image Width="30" Height="30" Source="/Resources/Icons/menu.jpg"></Image>
+                                <Image Width="30" Height="30" Source="/Resources/Icons/report2.png"></Image>
 
                                 <Button.ToolTip>
                                     <ToolTip Content="Пожаловаться" Placement="Left" Style="{StaticResource tt_Style}" Height="30">
@@ -98,8 +98,8 @@
                                 </Button.ToolTip>
 
                             </Button>
-                            <Button Visibility="{Binding IsUserAdmin, RelativeSource={RelativeSource AncestorType=Page}}" x:Name="Freezer" Click="Freezer_Click" BorderThickness="0" Background="Transparent" Margin="2" Padding="0"  Tag="{Binding}" Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
-                                <Image Width="30" Height="30" Source="/Resources/Icons/menu.jpg"></Image>
+                            <Button Visibility="{Binding visibility, RelativeSource={RelativeSource AncestorType=Page}}" x:Name="Freezer" Click="Freezer_Click" BorderThickness="0" Background="Transparent" Margin="2" Padding="0"  Tag="{Binding}" Grid.Row="0" HorizontalAlignment="Right" Width="30" Height="30">
+                                <Image Width="30" Height="30" Source="/Resources/Icons/freeze.png"></Image>
                                 
                                 <Button.ToolTip>
                                     <ToolTip Content="Заморозить" Placement="Left" Style="{StaticResource tt_Style}" Height="30">

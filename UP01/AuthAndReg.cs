@@ -13,7 +13,7 @@ namespace UP01
     static class Auth
     {
         static public bool is_reg = true;
-        static public Users cur_user = Core.Context.Users.First(i => i.ID == 9);
+        static public Users cur_user = Core.Context.Users.First(i => i.ID == 1);
         private static List<Users> lst_users = Core.Context.Users.ToList();
         /// <summary>
         /// Функция проверки строки, на то является ли она корректным email
