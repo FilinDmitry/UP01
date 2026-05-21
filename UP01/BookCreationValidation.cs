@@ -16,6 +16,14 @@ namespace UP01
         private const int NameMin = 3;
         private const int ContentMin = 15;
         private const int DescMin = 10;
+        /// <summary>
+        /// Вызывает <see cref="Check(string, string, string, string)"/> если проверка входных параметров прошла успешно, то создает новую книгу
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Desc"></param>
+        /// <param name="ImagePath"></param>
+        /// <param name="Content"></param>
+        /// <returns><see langword="true"/> если книга создана, иначе <see langword="false"/></returns>
         public static bool CreateBook(string Name, string Desc, string ImagePath, string Content)
         {
             if (!Check(Name, Desc, ImagePath, Content))
@@ -33,7 +41,15 @@ namespace UP01
             Core.Context.SaveChanges();
             return true;
         }
-
+        /// <summary>
+        /// Вызывает <see cref="Check(string, string, string, string)"/> если проверка входных параметров прошла успешно, то изменяет существующую книгу
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Desc"></param>
+        /// <param name="ImagePath"></param>
+        /// <param name="Content"></param>
+        /// <param name="book">Книга для изменения</param>
+        /// <returns><see langword="true"/> если книга изменена, иначе <see langword="false"/></returns>
         public static bool ChangeBook(Books book, string Name, string Desc, string ImagePath, string Content)
         {
             if (Check(Name, Desc, ImagePath, Content))
@@ -48,6 +64,14 @@ namespace UP01
             return false;
             
         }
+        /// <summary>
+        /// Проверяет данные для создания/изменения пользователя, если есть ошибка выводит окно с сообщением
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Desc"></param>
+        /// <param name="ImagePath"></param>
+        /// <param name="Content"></param>
+        /// <returns><see langword="true"/> если все введеные параметры корректны, иначе <see langword="false"/></returns>
         private static bool Check(string Name, string Desc, string ImagePath, string Content)
         {
             if (Name.Length < NameMin)
