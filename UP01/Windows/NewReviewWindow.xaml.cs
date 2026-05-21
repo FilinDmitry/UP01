@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,11 @@ namespace UP01.Windows
                 MessageBox.Show("Поставьте оценку");
                 return;
             }
-
+            Reviews r = Core.Context.Reviews.FirstOrDefault(i => i.Book == book.ID || i.UserID == Auth.cur_user.ID);
+            if (r != null)
+            {
+                Core.Context.Reviews.Remove(r);
+            }
             Core.Context.Reviews.Add(new Reviews()
             {
                 Books = book,
