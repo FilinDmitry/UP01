@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +23,7 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookListPage : Page
     {
-
+        int count = 0;
         ListBox LB_ReadingList;
         List<BookInListViewModel> lst_book;
         List<BookInListViewModel> lst_book_readed;
@@ -46,6 +47,7 @@ namespace UP01.Pages
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             TabControl tab = sender as TabControl;
             TabItem item = tab.SelectedItem as TabItem;
             List<BookInListViewModel> filter = new List<BookInListViewModel>();
@@ -109,7 +111,6 @@ namespace UP01.Pages
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             ComboBox cb = sender as ComboBox;
             BookInListViewModel book = cb.DataContext as BookInListViewModel;
             if (book == null)
@@ -127,6 +128,7 @@ namespace UP01.Pages
                     Update_lists();
                     return;
                 }
+                
                 return;
             }
             
@@ -158,25 +160,7 @@ namespace UP01.Pages
         private List<BookInListViewModel> FilterList(List<BookInListViewModel> filter)
         {
             List<BookInListViewModel> list = filter;
-            TabItem ti = ListTabControl.SelectedItem as TabItem;
-            switch (ti.Tag.ToString())
-            {
-                case ("Все"):
-                    list = lst_book;
-                    break;
-                case ("Прочитано"):
-                    list = lst_book_readed;
-                    break;
-                case ("Читаю"):
-                    list = lst_book_reading;
-                    break;
-                case ("В планах"):
-                    list = lst_book_planed;
-                    break;
-                case ("Заброшено"):
-                    list = lst_book_dust;
-                    break;
-            }
+            
             if (Genre.SelectedItem != null)
             {
                 list = list.Where(b => b.is_genres(Genre.SelectedItem.ToString())).ToList();
@@ -203,6 +187,83 @@ namespace UP01.Pages
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            BookInListViewModel book = mi.DataContext as BookInListViewModel;
+            if (book == null)
+            {
+                return;
+
+            }
+            if (mi.Header.ToString() == "Без категории")
+            {
+                if (book.Status != "")
+                {
+                    ReadingList rla = book.r_list;
+                    Core.Context.ReadingList.Remove(rla);
+                    Core.Context.SaveChanges();
+                    Update_lists();
+                    return;
+                }
+                return;
+            }
+
+            if (book.Status == "")
+            { 
+                ReadingList readingList = new ReadingList()
+                {
+                    BookID = book.book.ID,
+                    UserID = Auth.cur_user.ID
+                };
+                switch (mi.Header)
+                {
+
+                    case "Прочитано":
+                        readingList.StatusID = 4;
+                        break;
+                    case "Читаю":
+                        readingList.StatusID = 3;
+                        break;
+                    case "Заброшено":
+                        readingList.StatusID = 1;
+                        break;
+                    case "В планах":
+                        readingList.StatusID = 2;
+                        break;
+                }
+                Core.Context.ReadingList.Add(readingList);
+                Core.Context.SaveChanges();
+                MessageBox.Show("Успеешно перемещено");
+                Update_lists();
+                return;
+            }
+            else
+            {
+                ReadingList rla = book.r_list;
+                switch (mi.Header)
+                {
+                    
+                    case "Прочитано":
+                        rla.StatusID = 4;
+                        break;
+                    case "Читаю":
+                        rla.StatusID = 3;
+                        break;
+                    case "Заброшено":
+                        rla.StatusID = 1;
+                        break;
+                    case "В планах":
+                        rla.StatusID = 2;
+                        break;
+                }
+                MessageBox.Show("Успеешно перемещено");
+                Core.Context.SaveChanges();
+                Update_lists();
+                return;
+            }
         }
     }
 }

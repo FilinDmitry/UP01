@@ -20,7 +20,7 @@ namespace UP01.ViewModels
         public string Reason => GetReason();
 
         
-        public string GetGroup()
+        private string GetGroup()
         {
             switch (type)
             {
@@ -32,7 +32,7 @@ namespace UP01.ViewModels
                     return string.Empty;
             }
         }
-        public void SetType()
+        private void SetType()
         {
             if (application_.BookID != null)
             {
@@ -43,7 +43,7 @@ namespace UP01.ViewModels
                 type = ApplicationType.UnfreezeApplication;
             }
         }
-        public string GetReason()
+        private string GetReason()
         {
             string r = string.Empty;
             switch (type)

@@ -51,6 +51,11 @@ namespace UP01.Pages
 
         private void Edit_book_click(object sender, RoutedEventArgs e)
         {
+            if (Auth.cur_user.isFreeze)
+            {
+                MessageBox.Show("Ваш аккаунт был заморожен");
+                return;
+            }
             Button btn = sender as Button;
             BookViewModel bvm = btn.DataContext as BookViewModel;
             NewBookWindow newBook = new NewBookWindow(bvm.book);
@@ -68,6 +73,11 @@ namespace UP01.Pages
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            if (Auth.cur_user.isFreeze)
+            {
+                MessageBox.Show("Ваш аккаунт был заморожен");
+                return;
+            }
             NewBookWindow newBook = new NewBookWindow(null);
             newBook.ShowDialog();
             if (newBook.is_created)

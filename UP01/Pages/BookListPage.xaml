@@ -85,13 +85,32 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <Grid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Click="MenuItem_Click" Header="Без категории">
+                                                
+                                            </MenuItem>
+                                            <MenuItem Click="MenuItem_Click" Header="Прочитано">
+
+                                            </MenuItem>
+                                            <MenuItem Click="MenuItem_Click" Header="Читаю">
+
+                                            </MenuItem>
+                                            <MenuItem Click="MenuItem_Click" Header="В планах">
+
+                                            </MenuItem>
+                                            <MenuItem Click="MenuItem_Click" Header="Заброшено">
+
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </Grid.ContextMenu>
 
                                     <Border BorderBrush="{StaticResource BorderColorBrush}" BorderThickness="1.5" CornerRadius="5" Padding="3">
                                         <StackPanel>
                                             <Image Source="{Binding ImagePath}" Height="230" Stretch="Uniform" VerticalAlignment="Bottom"></Image>
                                             <TextBlock Text="{Binding Name}" Margin="5" FontSize="16"></TextBlock>
                                             <TextBlock Text="{Binding Author}" Margin="5, 0, 5, 0" FontSize="16"></TextBlock>
-                                            <ComboBox SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding DataContext.lists, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Mode=OneTime}" SelectedItem="{Binding Status}" Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>
+                                            <!--<ComboBox SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding DataContext.lists, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Mode=OneTime}" SelectedItem="{Binding Status}" Style="{StaticResource Combo}" HorizontalAlignment="Stretch" Width="Auto"></ComboBox>-->
                                         </StackPanel>
                                     </Border>
                                     <Border Margin="3" CornerRadius="3" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{StaticResource SecondColorBrush}">

@@ -66,7 +66,11 @@ namespace UP01.Pages
         private void CreateReview_Click(object sender, RoutedEventArgs e)
         {
             BookViewModel bookView = this.DataContext as BookViewModel;
-
+            if (Auth.cur_user.isFreeze)
+            {
+                MessageBox.Show("Ваш аккаунт был заморожен");
+                return;
+            }
             NewReviewWindow newReview = new NewReviewWindow(bookView.book);
             newReview.ShowDialog();
             if (newReview.is_created)
