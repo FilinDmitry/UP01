@@ -16,7 +16,6 @@ namespace UP01.ViewModels
         public string ImagePath => book.ImagePath;
         public string Author => book.Users.Name;
         public string Description => book.Description;
-
         public string Rating => Rating_Book_Page();
 
         public string Genres => Get_Genres();

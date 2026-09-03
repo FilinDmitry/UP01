@@ -78,8 +78,11 @@ namespace UP01.Windows
                     };
                     Core.Context.ApplicationsToUnfreeze.Add(application_bf);
                     Core.Context.SaveChanges();
+                    
                     break;
             }
+            MessageBox.Show("Запрос успешно отправлен");
+            Close();
         }
     }
 }

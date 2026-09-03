@@ -23,11 +23,25 @@ namespace UP01.Pages
     /// </summary>
     public partial class BookPage : Page
     {
+        bool IsUserAdmin = false;
+
+        public Visibility visibility
+        {
+            get {
+                if (IsUserAdmin)
+                    return Visibility.Visible;
+                return Visibility.Collapsed;
+            }
+            set
+            { }
+        }
         public BookPage(BookViewModel book)
         {
+            IsUserAdmin = Auth.cur_user.RoleID == 3;
             this.DataContext = book;
             InitializeComponent();
-            LB_Reviews.ItemsSource = book.book.Reviews.ToList();
+            
+            LB_Reviews.ItemsSource = book.book.Reviews.Where(i => !i.IsFreeze).ToList();
             
         }
 
@@ -49,11 +63,42 @@ namespace UP01.Pages
         {
             Button btn = sender as Button;
             Reviews review = btn.DataContext as Reviews;
-            ReportWindow reportWindow = new ReportWindow(ReportType.BookReport, review.ID, Auth.cur_user.ID);
+            ReportWindow reportWindow = new ReportWindow(ReportType.ReviewReport, review.ID, Auth.cur_user.ID);
             reportWindow.Show();
         }
-        
 
+        private void Freezer_Click(object sender, RoutedEventArgs e)
+        {
+            BookViewModel bookView = this.DataContext as BookViewModel;
+            Button button = sender as Button;
+            Reviews review = button.DataContext as Reviews;
+            review.IsFreeze = true;
 
+            LB_Reviews.ItemsSource = null;
+            LB_Reviews.ItemsSource = bookView.book.Reviews.Where(i => !i.IsFreeze).ToList();
+        }
+
+        private void CreateReview_Click(object sender, RoutedEventArgs e)
+        {
+            BookViewModel bookView = this.DataContext as BookViewModel;
+            if (Auth.cur_user.isFreeze)
+            {
+                MessageBox.Show("Ваш аккаунт был заморожен");
+                return;
+            }
+            NewReviewWindow newReview = new NewReviewWindow(bookView.book);
+            newReview.ShowDialog();
+            if (newReview.is_created)
+            {
+                MessageBox.Show("Отзыв успешно создан");
+                LB_Reviews.ItemsSource = null;
+                LB_Reviews.ItemsSource = bookView.book.Reviews.ToList();
+            }
+        }
+
+        private void ReadBook_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ReadBookPage(this.DataContext as BookViewModel));
+        }
     }
 }

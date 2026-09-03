@@ -8,6 +8,6 @@ namespace UP01.Models
 {
     static internal class Core
     {
-        public static LibraryUP01Entities Context = new LibraryUP01Entities();
+        public static LibraryUP11Entities Context = new LibraryUP11Entities();
     }
 }

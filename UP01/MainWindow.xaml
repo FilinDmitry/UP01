@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:UP01"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        >
 
     <Window.Resources>
-        <ImageBrush x:Key="TbBtn_MouseOver" ImageSource="/Resources/Icons/menu.jpg">
+        <ImageBrush x:Key="TbBtn_MouseOver" ImageSource="/Resources/Icons/menu.png">
 
         </ImageBrush>
         <Style x:Key="TbBtn_Style" TargetType="{x:Type ToggleButton}">
@@ -41,6 +42,15 @@
             <StackPanel x:Name="st_panel">
                 
                 <ListView SelectionChanged="ListV_SelectionChanged" MouseEnter="ListV_MouseEnter" x:Name="ListV" BorderBrush="Transparent" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem Visibility="Collapsed" x:Name="Back" HorizontalAlignment="Left" Margin="0,0,0,15">
+                        <StackPanel Orientation="Horizontal" Width="230">
+                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
+                        </StackPanel>
+                        <ListViewItem.ToolTip>
+                            <ToolTip x:Name="tt_back" Style="{StaticResource tt_Style}" Content="Назад"></ToolTip>
+                        </ListViewItem.ToolTip>
+                    </ListViewItem>
                     <ListViewItem x:Name="El1" HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
                             <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
@@ -52,7 +62,7 @@
                     </ListViewItem>
                     <ListViewItem x:Name="El2" HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
-                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <Image Height="50" Width="50" Source="/Resources/Icons/booksearch.png"></Image>
                             <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
                         </StackPanel>
                         <ListViewItem.ToolTip>
@@ -61,34 +71,34 @@
                     </ListViewItem>
                     <ListViewItem x:Name="El3"  HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
-                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <Image Height="50" Width="50" Source="/Resources/Icons/booklist.png"></Image>
                             <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
                         </StackPanel>
                         <ListViewItem.ToolTip>
                             <ToolTip x:Name="tt3" Style="{StaticResource tt_Style}" Content="Список чтения"></ToolTip>
                         </ListViewItem.ToolTip>
                     </ListViewItem>
-                    <ListViewItem x:Name="El4"  HorizontalAlignment="Left" Margin="0,0,0,15">
+                    <ListViewItem Visibility="Collapsed" x:Name="El4"  HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
-                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <Image Height="50" Width="50" Source="/Resources/Icons/author.png"></Image>
                             <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
                         </StackPanel>
                         <ListViewItem.ToolTip>
                             <ToolTip x:Name="tt4" Style="{StaticResource tt_Style}" Content="Страница автора"></ToolTip>
                         </ListViewItem.ToolTip>
                     </ListViewItem>
-                    <ListViewItem x:Name="El5" HorizontalAlignment="Left" Margin="0,0,0,15">
+                    <ListViewItem Visibility="Collapsed" x:Name="El5" HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
-                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <Image Height="50" Width="50" Source="/Resources/Icons/admin.png"></Image>
                             <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
                         </StackPanel>
                         <ListViewItem.ToolTip>
                             <ToolTip x:Name="tt5" Style="{StaticResource tt_Style}" Content="Страница администратора"></ToolTip>
                         </ListViewItem.ToolTip>
                     </ListViewItem>
-                    <ListViewItem x:Name="El6" HorizontalAlignment="Left" Margin="0,0,0,15">
+                    <ListViewItem Visibility="Collapsed" x:Name="El6" HorizontalAlignment="Left" Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Width="230">
-                            <Image Height="50" Width="50" Source="/Resources/Icons/profile.png"></Image>
+                            <Image Height="50" Width="50" Source="/Resources/Icons/freeze.png"></Image>
                             <TextBlock  Foreground="White" Background="Transparent" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Профиль" Margin="13, 0, 0, 0"></TextBlock>
                         </StackPanel>
                         <ListViewItem.ToolTip>
@@ -120,7 +130,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
-            <Frame x:Name="MainFrame" Source="\Pages\Authorizationpage.xaml" NavigationUIVisibility="Hidden"></Frame>
+            <Frame Navigated="MainFrame_Navigated" x:Name="MainFrame" Source="\Pages\Authorizationpage.xaml" NavigationUIVisibility="Hidden"></Frame>
         </Grid>
     </Grid>
 </Window>

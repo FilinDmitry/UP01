@@ -8,7 +8,7 @@ namespace UP01
 {
     public enum ReportType
     {
-        UserReport,
+        UserReport = 1,
         BookReport,
         ReviewReport
     }
@@ -19,4 +19,6 @@ namespace UP01
         UnfreezeApplication,
         BookUnfreeze
     }
+
+    
 }

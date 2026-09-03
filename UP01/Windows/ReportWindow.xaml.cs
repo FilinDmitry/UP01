@@ -34,15 +34,48 @@ namespace UP01.Windows
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string comment = TB_Comment.Text;
+            Reports report;
             switch (type)
             {
                 case ReportType.UserReport:
+                    report = new Reports()
+                    {
+                        AuthorID = Auth.cur_user.ID,
+                        Users1 = Core.Context.Users.First(i => i.ID == ID),
+                        ReportType = 1,
+                        Description = comment
+                        
+                    };
+                    Core.Context.Reports.Add(report);
+                    Core.Context.SaveChanges();
                     break;
                 case ReportType.BookReport:
+                    report = new Reports()
+                    {
+                        AuthorID = Auth.cur_user.ID,
+                        Books = Core.Context.Books.First(i => i.ID == ID),
+                        ReportType = 2,
+                        Description = comment
+                    };
+                    Core.Context.Reports.Add(report);
+                    Core.Context.SaveChanges();
                     break;
                 case ReportType.ReviewReport:
+                    report = new Reports()
+                    {
+                        AuthorID = Auth.cur_user.ID,
+                        Reviews = Core.Context.Reviews.First(i => i.ID == ID),
+                        ReportType = 3,
+                        Description = comment
+                    };
+                    Core.Context.Reports.Add(report);
+                    Core.Context.SaveChanges();
                     break;
+                
             }
+            Close();
+            MessageBox.Show("Жалоба отправлена");
+            
         }
     }
 }

@@ -12,24 +12,17 @@ namespace UP01.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Reviews
+    public partial class ReportType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Reviews()
+        public ReportType()
         {
             this.Reports = new HashSet<Reports>();
         }
     
         public int ID { get; set; }
-        public int Book { get; set; }
-        public int UserID { get; set; }
-        public int Rating { get; set; }
-        public string Message { get; set; }
-        public System.DateTime Date { get; set; }
-        public bool IsFreeze { get; set; }
+        public string Name { get; set; }
     
-        public virtual Books Books { get; set; }
-        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reports> Reports { get; set; }
     }
